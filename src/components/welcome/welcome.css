@@ -1,0 +1,29 @@
+.welcome {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome a {
+  display: inline-block;
+  font-size: 15px;
+  padding: 10px 20px;
+  width: auto;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: #6e45e2;
+  border: 1px solid#6e45e2;
+  /* background-color: #6e45e2; */
+}
+
+.welcome a:hover {
+  color: #ffffff;
+  background-color: #6e45e2;
+}
+
+.welcome a:first-child {
+  margin-right: 20px;
+}
