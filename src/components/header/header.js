@@ -1,20 +1,21 @@
 import React from "react";
 import "./header.css";
+import Logout from "../../components/logout/logout";
 
 function Header() {
   return (
-    <div className="Header">
+    <header className="header">
       <nav>
         <ul>
           <li>
-            <a href="#">Войти</a>
+            <a href="#">User</a>
           </li>
           <li>
-            <a href="#">Зарегистрироваться</a>
+            <Logout />
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 }
 

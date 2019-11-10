@@ -1,0 +1,23 @@
+.header {
+  background-color: azure;
+}
+
+.header nav {
+  padding: 20px;
+}
+
+.header ul {
+  list-style: none;
+  margin: 0;
+  margin-left: auto;
+  padding: 0;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header a {
+  text-decoration: none;
+  color: #000000;
+}

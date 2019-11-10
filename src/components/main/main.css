@@ -1,0 +1,23 @@
+.main {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.main h1 {
+  text-align: center;
+}
+
+.main main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main__left-column {
+  width: 30%;
+}
+
+.main__right-column {
+  width: 70%;
+  padding: 20px;
+}

@@ -1,0 +1,20 @@
+.logout {
+  display: inline-block;
+  font-size: 15px;
+  padding: 10px 20px;
+  width: auto;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid#6e45e2;
+  background-color: #6e45e2;
+}
+
+a.logout {
+  color: #ffffff;
+}
+
+a.logout:hover {
+  color: #ffffff;
+  background-color: #6e45e2;
+}
