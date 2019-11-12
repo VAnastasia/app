@@ -2,7 +2,9 @@ import React from "react";
 import "./header.css";
 import Logout from "../../components/logout/logout";
 
-function Header() {
+function Header(props) {
+  const { onClickLogout } = props;
+
   return (
     <header className="header">
       <nav>
@@ -11,7 +13,7 @@ function Header() {
             <a href="#">User</a>
           </li>
           <li>
-            <Logout />
+            <Logout onClickLogout={onClickLogout} />
           </li>
         </ul>
       </nav>

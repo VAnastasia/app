@@ -1,11 +1,14 @@
 import React from "react";
 import "./logout.css";
+import { Link } from "react-router-dom";
 
-function Logout() {
+function Logout(props) {
+  const { onClickLogout } = props;
+
   return (
-    <a href="#" className="logout">
+    <Link to="/" className="logout" onClick={onClickLogout}>
       Выйти
-    </a>
+    </Link>
   );
 }
 

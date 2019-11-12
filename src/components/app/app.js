@@ -8,7 +8,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
   state = {
-    isAuth: 2,
+    isAuth: 1,
 
     notes: [
       {
@@ -38,22 +38,37 @@ export default class App extends Component {
     ]
   };
 
-  render() {
-    localStorage.setItem("id", "1");
-    localStorage.removeItem("id", "1");
+  onClickLogout = () => {
+    this.setState(() => {
+      return {
+        isAuth: null
+      };
+    });
+  };
 
-    console.log(localStorage);
+  render() {
     const { isAuth, notes } = this.state;
     const notesFiltered = notes.filter(note => {
       return note.idUser === isAuth;
     });
 
-    const screen = isAuth ? <Main notes={notesFiltered} /> : <Welcome />;
+    const screen = props =>
+      isAuth ? (
+        <Main
+          {...props}
+          notes={notesFiltered}
+          onClickLogout={this.onClickLogout}
+        />
+      ) : (
+        <Welcome />
+      );
+
+    console.log(this.state);
 
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={screen} />
           <Route path="/auth" component={Auth} />
           <Route path="/register" component={Register} />
         </div>
