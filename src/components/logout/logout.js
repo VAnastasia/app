@@ -7,7 +7,7 @@ function Logout(props) {
 
   return (
     <Link to="/" className="logout" onClick={onClickLogout}>
-      Выйти
+      <span>Выйти</span>
     </Link>
   );
 }

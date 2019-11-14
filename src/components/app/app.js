@@ -15,25 +15,29 @@ export default class App extends Component {
         id: 1,
         idUser: 1,
         title: "Заметка 1",
-        text: "Текст заметки"
+        text: "Текст заметки",
+        active: false
       },
       {
         id: 2,
         idUser: 1,
         title: "Заметка 2",
-        text: "Текст заметки"
+        text: "Текст заметки",
+        active: true
       },
       {
         id: 3,
         idUser: 2,
         title: "Заметка 3",
-        text: "Текст заметки"
+        text: "Текст заметки",
+        active: false
       },
       {
         id: 4,
         idUser: 2,
         title: "Заметка 4",
-        text: "Текст заметки"
+        text: "Текст заметки",
+        active: false
       }
     ]
   };

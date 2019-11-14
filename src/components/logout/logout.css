@@ -6,15 +6,18 @@
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
-  border: 1px solid#6e45e2;
-  background-color: #6e45e2;
+  border: 1px solid#1d2e5b;
+  background-color: transparent;
 }
 
-a.logout {
-  color: #ffffff;
+.logout span {
+  color: #1d2e5b;
 }
 
-a.logout:hover {
+.logout:hover {
+  background-color: #1d2e5b;
+}
+
+.logout:hover span {
   color: #ffffff;
-  background-color: #6e45e2;
 }

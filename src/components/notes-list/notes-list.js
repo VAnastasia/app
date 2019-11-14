@@ -8,9 +8,10 @@ export default class NotesList extends Component {
   }
 
   renderItems(arr) {
-    return arr.map(({ id, title }) => {
+    return arr.map(({ id, title, active }) => {
+      const activeClassName = active ? "notes-item active" : "notes-item";
       return (
-        <li className="notes-list" key={id}>
+        <li className={activeClassName} key={id}>
           {title}
         </li>
       );

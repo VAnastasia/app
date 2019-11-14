@@ -9,19 +9,37 @@
 .welcome a {
   display: inline-block;
   font-size: 15px;
+  font-weight: 700;
   padding: 10px 20px;
   width: auto;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
-  color: #6e45e2;
-  border: 1px solid#6e45e2;
-  /* background-color: #6e45e2; */
+  color: #ffffff;
+  border: 1px solid#ffffff;
+}
+
+.welcome h1 {
+  margin: 0;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 72px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.welcome p {
+  margin: 0;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .welcome a:hover {
-  color: #ffffff;
-  background-color: #6e45e2;
+  color: #1d2e5b;
+  background-color: #ffffff;
 }
 
 .welcome a:first-child {

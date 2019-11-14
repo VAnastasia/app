@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Welcome() {
   return (
     <div className="welcome">
-      <h1>"Заметки"</h1>
+      <h1>Заметки</h1>
       <p>Веб-приложение для хранения заметок</p>
       <div>
         <Link to="/auth">Войти</Link>

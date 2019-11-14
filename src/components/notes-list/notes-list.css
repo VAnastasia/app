@@ -4,7 +4,12 @@
   padding: 0;
 }
 
-.notes-list li {
+.notes-item {
   padding: 20px;
-  border-top: 1px solid #4d4d4d;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.notes-item.active {
+  background-color: #dedede;
 }

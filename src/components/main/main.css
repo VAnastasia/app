@@ -1,5 +1,6 @@
 .main {
-  width: 100%;
+  width: calc(100% - 100px);
+  margin: 0 auto;
   box-sizing: border-box;
   min-height: 100vh;
 }
@@ -15,9 +16,21 @@
 
 .main__left-column {
   width: 30%;
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+.main__left-column h1 {
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 36px;
 }
 
 .main__right-column {
+  margin-left: 20px;
   width: 70%;
   padding: 20px;
+  border-radius: 20px;
+  background-color: #ffffff;
 }
