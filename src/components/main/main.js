@@ -1,29 +1,46 @@
-import React from "react";
+import React, { Component } from "react";
 import "./main.css";
 import Header from "../../components/header/header";
 import NotesList from "../../components/notes-list/notes-list";
 import Search from "../../components/search/search";
 import NoteDetails from "../../components/note-details/note-details";
 
-const Main = props => {
-  const { notes, onClickLogout } = props;
-  const activeNote = notes.filter(note => note.active)[0];
+export default class Main extends Component {
+  notes = this.props.notes;
 
-  return (
-    <div className="main">
-      <Header onClickLogout={onClickLogout} />
-      <main>
-        <div className="main__left-column">
-          <h1>Все заметки</h1>
-          <Search />
-          <NotesList notes={notes} />
-        </div>
-        <div className="main__right-column">
-          <NoteDetails activeNote={activeNote} />
-        </div>
-      </main>
-    </div>
-  );
-};
+  state = {
+    activeNote: this.notes[0].id
+  };
 
-export default Main;
+  onClickNote = id => {
+    this.setState({
+      activeNote: id
+    });
+
+    console.log(id);
+  };
+
+  render() {
+    console.log(this.state);
+    const { notes, onClickLogout } = this.props;
+    return (
+      <div className="main">
+        <Header onClickLogout={onClickLogout} />
+        <main>
+          <div className="main__left-column">
+            <h1>Все заметки</h1>
+            <Search />
+            <NotesList
+              notes={notes}
+              activeNote={this.state.activeNote}
+              onClickNote={this.onClickNote}
+            />
+          </div>
+          <div className="main__right-column">
+            <NoteDetails activeNote={this.state.activeNote} notes={notes} />
+          </div>
+        </main>
+      </div>
+    );
+  }
+}

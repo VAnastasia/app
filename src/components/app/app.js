@@ -5,6 +5,7 @@ import Welcome from "../../components/welcome/welcome";
 import Auth from "../../components/auth/auth";
 import Register from "../../components/register/register";
 import { BrowserRouter, Route } from "react-router-dom";
+//import { observable } from "mobx";
 
 export default class App extends Component {
   state = {
@@ -15,29 +16,25 @@ export default class App extends Component {
         id: 1,
         idUser: 1,
         title: "Заметка 1",
-        text: "Текст заметки",
-        active: false
+        text: "Текст заметки"
       },
       {
         id: 2,
         idUser: 1,
         title: "Заметка 2",
-        text: "Текст заметки",
-        active: true
+        text: "Текст заметки"
       },
       {
         id: 3,
         idUser: 2,
         title: "Заметка 3",
-        text: "Текст заметки",
-        active: false
+        text: "Текст заметки"
       },
       {
         id: 4,
         idUser: 2,
         title: "Заметка 4",
-        text: "Текст заметки",
-        active: false
+        text: "Текст заметки"
       }
     ]
   };

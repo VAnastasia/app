@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import "./notes-list.css";
 
 export default class NotesList extends Component {
-  constructor(props) {
-    super();
-    this.notes = props.notes;
-  }
-
   renderItems(arr) {
-    return arr.map(({ id, title, active }) => {
-      const activeClassName = active ? "notes-item active" : "notes-item";
+    const { activeNote, onClickNote } = this.props;
+    return arr.map(({ id, title }) => {
+      const noteClassName =
+        activeNote === id ? "notes-item active" : "notes-item";
       return (
-        <li className={activeClassName} key={id}>
+        <li className={noteClassName} key={id} onClick={() => onClickNote(id)}>
           {title}
         </li>
       );
@@ -19,7 +16,8 @@ export default class NotesList extends Component {
   }
 
   render() {
-    const items = this.renderItems(this.notes);
+    const { notes } = this.props;
+    const items = this.renderItems(notes);
 
     return <ul className="notes-list">{items}</ul>;
   }
