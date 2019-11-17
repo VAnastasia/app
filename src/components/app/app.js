@@ -9,7 +9,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
   state = {
-    isAuth: 1,
+    isAuth: 2,
 
     notes: [
       {

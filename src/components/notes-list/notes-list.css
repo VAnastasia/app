@@ -5,6 +5,7 @@
 }
 
 .notes-item {
+  cursor: pointer;
   padding: 20px;
   font-size: 18px;
   border-radius: 10px;
