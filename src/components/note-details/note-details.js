@@ -4,18 +4,10 @@ import "./note-details.css";
 
 export default class NoteDetails extends Component {
   state = {
-    title: this.getTitle,
-    text: this.getText
-  };
-
-  getTitle = () => {
-    return this.props.notes.filter(note => note.id === this.props.activeNote)[0]
-      .title;
-  };
-
-  getText = () => {
-    return this.props.notes.filter(note => note.id === this.props.activeNote)[0]
-      .text;
+    title: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
+    .title,
+    text: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
+    .text
   };
 
   onTitleChange = evt => {
@@ -34,8 +26,7 @@ export default class NoteDetails extends Component {
     const { title, text } = this.props.notes.filter(
       note => note.id === this.props.activeNote
     )[0];
-    console.log(title, text);
-
+  
     return (
       <div className="note-details">
         <input type="text" value={title} onChange={this.onTitleChange}></input>

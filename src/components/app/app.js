@@ -64,8 +64,6 @@ export default class App extends Component {
         <Welcome />
       );
 
-    console.log(this.state);
-
     return (
       <BrowserRouter>
         <div className="App">

@@ -16,12 +16,9 @@ export default class Main extends Component {
     this.setState({
       activeNote: id
     });
-
-    console.log(id);
   };
 
   render() {
-    console.log(this.state);
     const { notes, onClickLogout } = this.props;
     return (
       <div className="main">
