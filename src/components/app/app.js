@@ -9,6 +9,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
   state = {
+<<<<<<< HEAD
     isAuth: null,
 
     users: [
@@ -23,31 +24,34 @@ export default class App extends Component {
         password: "123456"
       }
     ],
+=======
+    isAuth: 1,
+>>>>>>> c6698efbbd71434818d56293a8928107cffee5b5
 
     notes: [
       {
         id: 1,
         idUser: 1,
         title: "Заметка 1",
-        text: "Текст заметки"
+        text: "Текст заметки 1"
       },
       {
         id: 2,
         idUser: 1,
         title: "Заметка 2",
-        text: "Текст заметки"
+        text: "Текст заметки 2"
       },
       {
         id: 3,
         idUser: 2,
         title: "Заметка 3",
-        text: "Текст заметки"
+        text: "Текст заметки 3"
       },
       {
         id: 4,
         idUser: 2,
         title: "Заметка 4",
-        text: "Текст заметки"
+        text: "Текст заметки 4"
       }
     ]
   };
@@ -107,7 +111,7 @@ export default class App extends Component {
         <Auth {...props} onSubmitAuth={this.onSubmitAuth} />
       );
     };
-
+    
     return (
       <BrowserRouter>
         <div className="App">

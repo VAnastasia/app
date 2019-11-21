@@ -8,7 +8,7 @@ export default class Search extends Component {
       <form className="search" method="get">
         <input type="text" placeholder="Поиск"></input>
         <button type="submit">
-          <img src={icon} width="20" height="20" className="search__icon"></img>
+          <img src={icon} alt="search" width="20" height="20" className="search__icon"></img>
         </button>
       </form>
     );
