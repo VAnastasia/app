@@ -9,7 +9,20 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
   state = {
-    isAuth: 2,
+    isAuth: null,
+
+    users: [
+      {
+        id: 1,
+        login: "Admin",
+        password: "123456"
+      },
+      {
+        id: 2,
+        login: "User",
+        password: "123456"
+      }
+    ],
 
     notes: [
       {
@@ -47,8 +60,23 @@ export default class App extends Component {
     });
   };
 
+  onSubmitAuth = evt => {
+    evt.preventDefault();
+    const login = document.forms[0].elements.login.value;
+    const password = document.forms[0].elements.password.value;
+    const user = this.state.users.filter(user => user.login === login)[0];
+
+    if (user.password === password) {
+      this.setState(() => {
+        return {
+          isAuth: user.id
+        };
+      });
+    }
+  };
+
   render() {
-    const { isAuth, notes } = this.state;
+    const { isAuth, notes, users } = this.state;
     const notesFiltered = notes.filter(note => {
       return note.idUser === isAuth;
     });
@@ -57,6 +85,8 @@ export default class App extends Component {
       isAuth ? (
         <Main
           {...props}
+          isAuth={isAuth}
+          users={users}
           notes={notesFiltered}
           onClickLogout={this.onClickLogout}
         />
@@ -64,13 +94,25 @@ export default class App extends Component {
         <Welcome />
       );
 
-    console.log(this.state);
+    const auth = props => {
+      return isAuth ? (
+        <Main
+          {...props}
+          isAuth={isAuth}
+          users={users}
+          notes={notesFiltered}
+          onClickLogout={this.onClickLogout}
+        />
+      ) : (
+        <Auth {...props} onSubmitAuth={this.onSubmitAuth} />
+      );
+    };
 
     return (
       <BrowserRouter>
         <div className="App">
           <Route exact path="/" component={screen} />
-          <Route path="/auth" component={Auth} />
+          <Route path="/auth" component={auth} />
           <Route path="/register" component={Register} />
         </div>
       </BrowserRouter>

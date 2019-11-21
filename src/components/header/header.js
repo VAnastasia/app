@@ -3,14 +3,15 @@ import "./header.css";
 import Logout from "../../components/logout/logout";
 
 function Header(props) {
-  const { onClickLogout } = props;
+  const { onClickLogout, isAuth, users } = props;
+  const userName = users.filter(user => user.id === isAuth)[0].login;
 
   return (
     <header className="header">
       <nav>
         <ul>
           <li>
-            <a href="#">User</a>
+            <a href="#">{userName}</a>
           </li>
           <li>
             <Logout onClickLogout={onClickLogout} />

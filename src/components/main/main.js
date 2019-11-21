@@ -16,16 +16,14 @@ export default class Main extends Component {
     this.setState({
       activeNote: id
     });
-
-    console.log(id);
   };
 
   render() {
-    console.log(this.state);
-    const { notes, onClickLogout } = this.props;
+    const { notes, onClickLogout, isAuth, users } = this.props;
+
     return (
       <div className="main">
-        <Header onClickLogout={onClickLogout} />
+        <Header onClickLogout={onClickLogout} isAuth={isAuth} users={users} />
         <main>
           <div className="main__left-column">
             <h1>Все заметки</h1>
