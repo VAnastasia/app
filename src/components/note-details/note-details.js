@@ -3,12 +3,12 @@ import "./note-details.css";
 //import { observer } from "mobx-react";
 
 export default class NoteDetails extends Component {
-  state = {
-    title: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
-      .title,
-    text: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
-      .text
-  };
+  // state = {
+  //   title: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
+  //     .title,
+  //   text: this.props.notes.filter(note => note.id === this.props.activeNote)[0]
+  //     .text
+  // };
 
   onTitleChange = evt => {
     this.setState({
