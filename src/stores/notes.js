@@ -1,4 +1,5 @@
 import { observable, computed, action, decorate } from "mobx";
+import { userStore } from "./users";
 
 class NotesStore {
   notes = [
@@ -16,36 +17,63 @@ class NotesStore {
     }
   ];
 
-  isAuth = 0;
+  activeNote = this.notesUser[0];
 
   get notesUser() {
-    return this.isAuth
-      ? this.notes.filter(note => note.userId === this.isAuth)
+    return userStore.isAuth
+      ? this.notes.filter(note => note.idUser === userStore.isAuth)
       : [];
   }
+
+  setActiveNote = id => {
+    return (this.activeNote = this.notes.filter(note => note.id === id)[0]);
+  };
+
+  onClickNote = id => {
+    this.setActiveNote(id);
+  };
 
   get length() {
     return this.notes.length;
   }
 
-  addNote({ id, idUser, title, text }) {
+  onClickAdd = () => {
+    this.addNote({
+      id: this.notes.length + 1,
+      idUser: userStore.isAuth,
+      title: "Новая заметка",
+      text: "Текст новой заметки"
+    });
+  };
+
+  addNote = ({ id, idUser, title, text }) => {
     this.notes.push({
       id,
       idUser,
       title,
       text
     });
-  }
+  };
+
+  onTitleChange = evt => {
+    this.activeNote.title = evt.target.value;
+  };
+
+  onTextChange = evt => {
+    this.activeNote.text = evt.target.value;
+  };
 }
 
 decorate(NotesStore, {
   notes: observable,
-  isAuth: observable,
-  notesUser: computed,
+  activeNote: observable,
   length: computed,
-  addNote: action
+  notesUser: computed,
+  setActiveNote: action,
+  addNote: action,
+  onTitleChange: action,
+  onTextChange: action
 });
 
 const notesStore = new NotesStore();
-
 export { notesStore };

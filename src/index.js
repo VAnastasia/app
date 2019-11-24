@@ -3,9 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import { notesStore } from "./stores/notes";
-//import { Provider } from "mobx-react";
+import { userStore } from "./stores/users";
+import { Provider } from "mobx-react";
+
+const stores = { notesStore, userStore };
 
 ReactDOM.render(
-  <App notesStore={notesStore} />,
+  <Provider {...stores}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
