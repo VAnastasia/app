@@ -4,12 +4,12 @@ class UserStore {
   users = [
     {
       id: 1,
-      login: "Admin",
+      login: "admin",
       password: "123456"
     },
     {
       id: 2,
-      login: "User",
+      login: "user",
       password: "123456"
     }
   ];
@@ -22,7 +22,6 @@ class UserStore {
 
   onClickLogout = () => {
     this.setUser(null);
-    console.log(this.isAuth);
   };
 
   onSubmitAuth = evt => {
