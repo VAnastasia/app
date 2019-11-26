@@ -1,2 +1,2 @@
-import { NoteDetails } from "./auth";
+import NoteDetails from "./note-details";
 export default NoteDetails;

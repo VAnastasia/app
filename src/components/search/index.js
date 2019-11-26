@@ -1,2 +1,2 @@
-import { Search } from "./auth";
+import Search from "./search";
 export default Search;

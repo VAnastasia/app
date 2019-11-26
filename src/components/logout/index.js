@@ -1,2 +1,2 @@
-import { Logout } from "./auth";
+import Logout from "./logout";
 export default Logout;

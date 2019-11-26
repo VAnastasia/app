@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import "./notes-list.css";
+import Button from "../../components/button";
 
 export default inject("notesStore")(
   observer(
@@ -30,9 +31,11 @@ export default inject("notesStore")(
         return (
           <div>
             <ul className="notes-list">{items}</ul>
-            <button className="notes-list__button" onClick={onClickAdd}>
-              Создать заметку
-            </button>
+            <Button
+              type={"button"}
+              title={"Создать заметку"}
+              onClick={onClickAdd}
+            />
           </div>
         );
       }

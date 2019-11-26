@@ -1,2 +1,2 @@
-import { Main } from "./auth";
+import Main from "./main";
 export default Main;

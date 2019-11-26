@@ -1,2 +1,2 @@
-import { Register } from "./auth";
+import Register from "./register";
 export default Register;

@@ -1,2 +1,2 @@
-import { NotesList } from "./auth";
+import NotesList from "./notes-list";
 export default NotesList;

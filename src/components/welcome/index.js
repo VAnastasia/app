@@ -1,2 +1,2 @@
-import { Welcome } from "./auth";
+import Welcome from "./welcome";
 export default Welcome;

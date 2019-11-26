@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./main.css";
-import Header from "../../components/header/header";
-import NotesList from "../../components/notes-list/notes-list";
-import Search from "../../components/search/search";
-import NoteDetails from "../../components/note-details/note-details";
+import Header from "../../components/header";
+import NotesList from "../../components/notes-list";
+import Search from "../../components/search";
+import NoteDetails from "../../components/note-details";
+
 import { observer, inject } from "mobx-react";
 
 export default inject("userStore")(

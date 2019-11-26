@@ -28,17 +28,6 @@
   padding: 0 15px;
 }
 
-.auth button {
-  margin-top: 20px;
-  box-sizing: border-box;
-  height: 40px;
-  border-radius: 10px;
-  border: none;
-  background-color: #1d2e5b;
-  color: #ffffff;
-  font-size: 18px;
-}
-
 .auth__field {
   margin: 0;
   margin-bottom: 30px;

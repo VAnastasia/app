@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./app.css";
-import Main from "../../components/main/main";
-import Welcome from "../../components/welcome/welcome";
-import Auth from "../../components/auth/auth";
-import Register from "../../components/register/register";
+import Main from "../../components/main";
+import Welcome from "../../components/welcome";
+import Auth from "../../components/auth";
+import Register from "../../components/register";
+
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 
@@ -18,11 +19,9 @@ export default inject("userStore")(
 
         return (
           <BrowserRouter>
-            <div className="app">
-              <Route exact path="/" component={screen} />
-              <Route path="/auth" component={auth} />
-              <Route path="/register" component={Register} />
-            </div>
+            <Route exact path="/" component={screen} />
+            <Route path="/auth" component={auth} />
+            <Route path="/register" component={Register} />
           </BrowserRouter>
         );
       }
