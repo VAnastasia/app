@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import "./app.css";
-import Main from "../../components/main";
-import Welcome from "../../components/welcome";
-import Auth from "../../components/auth";
-import Register from "../../components/register";
+import Main from "../../views/main";
+import Welcome from "../../views/welcome";
+import Auth from "../../views/auth";
+import Register from "../../views/register";
 
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 
-export default inject("userStore")(
+export default inject("userStore", "notesStore")(
   observer(
     class App extends Component {
       render() {
-        const isAuth = this.props.userStore.isAuth;
+        const { onClickLogout, isAuth, users, onSubmitAuth } = this.props.userStore;
+        const { activeNote, onClickNote, notesUser, onClickAdd } = this.props.notesStore;
 
-        const screen = () => (isAuth ? <Main /> : <Welcome />);
-        const auth = () => (isAuth ? <Redirect to="/" /> : <Auth />);
+        const screen = () => (isAuth ? <Main onClickLogout={onClickLogout} users={users} activeNote={activeNote} onClickNote={onClickNote} notesUser={notesUser} onClickAdd={onClickAdd} isAuth={isAuth} /> : <Welcome />);
+        const auth = () => (isAuth ? <Redirect to="/" /> : <Auth onSubmitAuth={onSubmitAuth} />);
 
         return (
           <BrowserRouter>

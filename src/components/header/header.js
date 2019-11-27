@@ -1,14 +1,9 @@
 import React from "react";
 import "./header.css";
 import Logout from "../../components/logout/logout";
-import { observer, inject } from "mobx-react";
 
-export default inject(
-  "notesStore",
-  "userStore"
-)(
-  observer(function Header(props) {
-    const { onClickLogout, isAuth, users } = props.userStore;
+export default function Header(props) {
+    const { onClickLogout, isAuth, users } = props;
     const userName = isAuth
       ? users.filter(user => user.id === isAuth)[0].login
       : null;
@@ -25,5 +20,5 @@ export default inject(
         </nav>
       </header>
     );
-  })
-);
+  }
+;
