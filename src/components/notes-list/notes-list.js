@@ -10,11 +10,7 @@ export default class NotesList extends Component {
       const noteClassName =
         activeNote === id ? "notes-item active" : "notes-item";
       return (
-        <li
-          className={noteClassName}
-          key={id}
-          onClick={() => onClickNote(id)}
-        >
+        <li className={noteClassName} key={id} onClick={() => onClickNote(id)}>
           {title}
         </li>
       );
@@ -36,4 +32,4 @@ export default class NotesList extends Component {
       </div>
     );
   }
-};
+}

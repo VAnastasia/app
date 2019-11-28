@@ -17,7 +17,6 @@ class NotesStore {
     }
   ];
 
-  
   // activeNote = this.notesUser[0];
 
   // get notesUser() {
@@ -34,21 +33,21 @@ class NotesStore {
   //   this.setActiveNote(id);
   // };
 
-  get length() {
-    return this.notes.length;
-  }
+  // get length() {
+  //   return this.notes.length;
+  // }
 
-  onClickAdd = () => {
-    this.addNote({
-      id: this.notes.length + 1,
-      idUser: userStore.isAuth,
-      title: "Новая заметка",
-      text: "Текст новой заметки"
-    });
-  };
+  // onClickAdd = () => {
+  //   this.addNote({
+  //     id: this.notes.length + 1,
+  //     idUser: userStore.isAuth,
+  //     title: "Новая заметка",
+  //     text: "Текст новой заметки"
+  //   });
+  // };
 
   addNote = ({ id, idUser, title, text }) => {
-    this.notes.push({
+    this.notes.unshift({
       id,
       idUser,
       title,
@@ -57,7 +56,10 @@ class NotesStore {
   };
 
   onTitleChange = evt => {
-    this.activeNote.title = evt.target.value;
+    //this.activeNote.title = evt.target.value;
+    //console.log(evt.target.value);
+    this.notes[0].title = evt.target.value;
+    console.log(this.notes[0].title);
   };
 
   onTextChange = evt => {
@@ -68,9 +70,9 @@ class NotesStore {
 decorate(NotesStore, {
   notes: observable,
   //activeNote: observable,
-  length: computed,
+  //length: computed,
   //notesUser: computed,
-  setActiveNote: action,
+  //setActiveNote: action,
   addNote: action,
   onTitleChange: action,
   onTextChange: action
