@@ -1,6 +1,7 @@
 .note-details {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .note-details input {
@@ -18,4 +19,5 @@
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   resize: vertical;
+  flex-grow: 1;
 }

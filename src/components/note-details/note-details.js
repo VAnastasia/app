@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./note-details.css";
+import Button from "../button";
 
 export default class NoteDetails extends Component {
   state = {
@@ -26,24 +27,25 @@ export default class NoteDetails extends Component {
       text
       //onTextChange,
       //onTitleChange
-    } = this.props.activeNoteDetails;
+    } = this.props.activeNoteDetails();
 
-    const onTitleChange = this.props.onTitleChange;
+    //const onTitleChange = this.props.onTitleChange;
 
-    console.log(this.state);
+    console.log(this.props.activeNoteDetails());
 
     return (
-      <div className="note-details">
+      <form className="note-details" method="post">
         <input
           type="text"
-          onChange={onTitleChange}
+          onChange={this.onTitleChange}
           value={this.state.title}
         ></input>
         <textarea
           onChange={this.onTextChange}
           value={this.state.text}
         ></textarea>
-      </div>
+        <Button type="submit" title="Сохранить" />
+      </form>
     );
   }
 }
