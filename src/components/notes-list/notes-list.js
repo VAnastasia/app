@@ -8,7 +8,7 @@ export default class NotesList extends Component {
 
     return arr.map(({ id, title }) => {
       const noteClassName =
-        activeNote.id === id ? "notes-item active" : "notes-item";
+        activeNote === id ? "notes-item active" : "notes-item";
       return (
         <li
           className={noteClassName}

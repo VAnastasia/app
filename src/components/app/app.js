@@ -15,7 +15,7 @@ export default inject("userStore", "notesStore")(
         const { onClickLogout, isAuth, users, onSubmitAuth } = this.props.userStore;
         const { activeNote, onClickNote, notesUser, onClickAdd } = this.props.notesStore;
 
-        const screen = () => (isAuth ? <Main onClickLogout={onClickLogout} users={users} activeNote={activeNote} onClickNote={onClickNote} notesUser={notesUser} onClickAdd={onClickAdd} isAuth={isAuth} /> : <Welcome />);
+        const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () => (isAuth ? <Redirect to="/" /> : <Auth onSubmitAuth={onSubmitAuth} />);
 
         return (

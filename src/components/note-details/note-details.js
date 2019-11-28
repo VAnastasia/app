@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./note-details.css";
-import { inject, observer } from "mobx-react";
 
 export default class NoteDetails extends Component {
   render() {
@@ -9,7 +8,7 @@ export default class NoteDetails extends Component {
       text,
       onTextChange,
       onTitleChange
-    } = this.props.activeNote;
+    } = this.props.activeNoteDetails;
 
     return (
       <div className="note-details">

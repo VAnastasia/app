@@ -17,21 +17,22 @@ class NotesStore {
     }
   ];
 
-  activeNote = this.notesUser[0];
+  
+  // activeNote = this.notesUser[0];
 
-  get notesUser() {
-    return userStore.isAuth
-      ? this.notes.filter(note => note.idUser === userStore.isAuth)
-      : [];
-  }
+  // get notesUser() {
+  //   return userStore.isAuth
+  //     ? this.notes.filter(note => note.idUser === userStore.isAuth)
+  //     : [];
+  // }
 
-  setActiveNote = id => {
-    return (this.activeNote = this.notes.filter(note => note.id === id)[0]);
-  };
+  // onClickNote = id => {
+  //   return (this.notes.filter(note => note.id === id)[0]);
+  // };
 
-  onClickNote = id => {
-    this.setActiveNote(id);
-  };
+  // onClickNote = id => {
+  //   this.setActiveNote(id);
+  // };
 
   get length() {
     return this.notes.length;
@@ -66,9 +67,9 @@ class NotesStore {
 
 decorate(NotesStore, {
   notes: observable,
-  activeNote: observable,
+  //activeNote: observable,
   length: computed,
-  notesUser: computed,
+  //notesUser: computed,
   setActiveNote: action,
   addNote: action,
   onTitleChange: action,
