@@ -17,12 +17,13 @@ export default inject("userStore", "notesStore")(
 
         const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () => (isAuth ? <Redirect to="/" /> : <Auth onSubmitAuth={onSubmitAuth} />);
+        const register = () => (isAuth ? <Redirect to="/" /> : <Register />);
 
         return (
           <BrowserRouter>
             <Route exact path="/" component={screen} />
             <Route path="/auth" component={auth} />
-            <Route path="/register" component={Register} />
+            <Route path="/register" component={register} />
           </BrowserRouter>
         );
       }
