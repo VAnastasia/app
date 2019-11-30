@@ -4,8 +4,12 @@ import Button from "../button";
 
 export default class NoteDetails extends Component {
   state = {
-    title: this.props.activeNoteDetails().title,
-    text: this.props.activeNoteDetails().text
+    title: this.props.activeNoteDetails()
+      ? this.props.activeNoteDetails().title
+      : "",
+    text: this.props.activeNoteDetails()
+      ? this.props.activeNoteDetails().text
+      : ""
   };
 
   onTitleChange = evt => {
@@ -21,17 +25,21 @@ export default class NoteDetails extends Component {
   };
 
   render() {
-    const {
-      id,
-      title,
-      text
-      //onTextChange,
-      //onTitleChange
-    } = this.props.activeNoteDetails();
+    // const {
+    //   id,
+    //   title,
+    //   text
+    //   //onTextChange,
+    //   //onTitleChange
+    // } = this.props.activeNoteDetails();
 
     //const onTitleChange = this.props.onTitleChange;
 
-    console.log(this.props.activeNoteDetails());
+    //console.log(this.props.activeNoteDetails());
+
+    const button = this.state.title ? (
+      <Button type="submit" title="Сохранить" />
+    ) : null;
 
     return (
       <form className="note-details" method="post">
@@ -44,7 +52,7 @@ export default class NoteDetails extends Component {
           onChange={this.onTextChange}
           value={this.state.text}
         ></textarea>
-        <Button type="submit" title="Сохранить" />
+        {button}
       </form>
     );
   }

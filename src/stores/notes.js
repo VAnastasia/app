@@ -1,5 +1,7 @@
 import { observable, computed, action, decorate } from "mobx";
 import { userStore } from "./users";
+import firebase from "firebase/app";
+//const database = firebase.database();
 
 class NotesStore {
   notes = [
@@ -45,6 +47,30 @@ class NotesStore {
   //     text: "Текст новой заметки"
   //   });
   // };
+
+  // async getNotes() {
+  //   const res = await firebase
+  //     .database()
+  //     .ref("notes/")
+  //     .once("value")
+  //     .then(snapshot => {
+  //       console.log(snapshot);
+  //     });
+  //   return res;
+  // }
+
+  //notes = firebase.database().ref("notes/");
+
+  writeNoteData(userId, title, text) {
+    firebase
+      .database()
+      .ref("notes/")
+      .push({
+        userId: userId,
+        title: title,
+        text: text
+      });
+  }
 
   addNote = ({ id, idUser, title, text }) => {
     this.notes.unshift({

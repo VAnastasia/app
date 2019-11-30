@@ -27,7 +27,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 //firebase.analytics();
 
-
 const stores = { notesStore, userStore };
 
 ReactDOM.render(

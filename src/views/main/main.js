@@ -21,7 +21,7 @@ export default inject(
       };
 
       state = {
-        activeNote: this.getNotes()[0].id
+        activeNote: this.getNotes()[0] ? this.getNotes()[0].id : null
       };
 
       onClickNote = id => {
@@ -31,27 +31,33 @@ export default inject(
       };
 
       onClickAdd = () => {
-        const id = this.props.notesStore.notes.length + 1;
-        this.props.notesStore.addNote({
-          id: id,
-          idUser: this.props.userStore.isAuth,
-          title: "Новая заметка",
-          text: "Текст новой заметки"
-        });
+        // const id = this.props.notesStore.notes.length + 1;
+        // this.props.notesStore.addNote({
+        //   id: id,
+        //   idUser: this.props.userStore.isAuth,
+        //   title: "Новая заметка",
+        //   text: "Текст новой заметки"
+        // });
 
-        this.setState({
-          activeNote: id
-        });
+        // this.setState({
+        //   activeNote: id
+        // });
+
+        this.props.notesStore.writeNoteData(
+          this.props.userStore.isAuth,
+          "Новая заметка",
+          "Текст"
+        );
       };
 
       render() {
-        const { onClickLogout, users, isAuth } = this.props.userStore;
+        const { onClickLogout, users, isAuth, userName } = this.props.userStore;
         const { onTitleChange } = this.props.notesStore;
         // const activeNoteDetails = () =>
         //   this.getNotes().filter(note => note.id === this.state.activeNote)[0];
         const activeNoteDetails = () =>
           this.getNotes().filter(note => note.id === this.state.activeNote)[0];
-        console.log(activeNoteDetails());
+        //console.log(activeNoteDetails());
 
         return (
           <div className="main">
@@ -59,6 +65,7 @@ export default inject(
               onClickLogout={onClickLogout}
               isAuth={isAuth}
               users={users}
+              userName={userName}
             />
             <main>
               <div className="main__left-column">

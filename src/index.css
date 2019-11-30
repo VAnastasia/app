@@ -11,3 +11,14 @@ body {
 a {
   text-decoration: none;
 }
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0 15px 0;
+}
+
+.bottom a {
+  text-decoration: underline;
+  margin-left: 20px;
+}
