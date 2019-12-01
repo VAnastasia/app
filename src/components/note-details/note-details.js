@@ -3,13 +3,18 @@ import "./note-details.css";
 import Button from "../button";
 
 export default class NoteDetails extends Component {
+  // state = {
+  //   title: this.props.activeNoteDetails()
+  //     ? this.props.activeNoteDetails().title
+  //     : "",
+  //   text: this.props.activeNoteDetails()
+  //     ? this.props.activeNoteDetails().text
+  //     : ""
+  // };
+
   state = {
-    title: this.props.activeNoteDetails()
-      ? this.props.activeNoteDetails().title
-      : "",
-    text: this.props.activeNoteDetails()
-      ? this.props.activeNoteDetails().text
-      : ""
+    title: "",
+    text: ""
   };
 
   onTitleChange = evt => {

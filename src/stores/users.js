@@ -1,19 +1,11 @@
 import { observable, action, decorate } from "mobx";
 import firebase from "firebase/app";
+import "../firebase/config";
+
+import Firebase from "../firebase";
 
 class UserStore {
-  users = [
-    {
-      id: 1,
-      login: "admin",
-      password: "123456"
-    },
-    {
-      id: 2,
-      login: "user",
-      password: "123456"
-    }
-  ];
+  //Firebase = new Firebase();
 
   isAuth = null;
   isReg = false;
@@ -25,8 +17,8 @@ class UserStore {
       .createUserWithEmailAndPassword(email, password)
       .catch(error => {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        //var errorCode = error.code;
+        const errorMessage = error.message;
         alert(errorMessage);
         // ...
       });
@@ -37,7 +29,7 @@ class UserStore {
     }
   }
 
-  onSubmitRegister = evt => {
+  onSubmitRegister(evt) {
     evt.preventDefault();
 
     const user = {
@@ -46,7 +38,7 @@ class UserStore {
     };
 
     this.registerUser(user);
-  };
+  }
 
   setUser = id => {
     this.isAuth = id;
@@ -61,7 +53,7 @@ class UserStore {
   };
 
   async signIn({ email, password }) {
-    const user = firebase
+    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
@@ -71,8 +63,6 @@ class UserStore {
         alert(errorMessage);
         // ...
       });
-
-    console.log(user);
   }
 
   onSubmitAuth = evt => {
@@ -96,8 +86,10 @@ class UserStore {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log(user.uid);
+
         this.isAuth = user.uid;
         this.userName = user.email;
+
         // User is signed in.
       } else {
         // No user is signed in.

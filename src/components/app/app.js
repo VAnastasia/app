@@ -16,18 +16,19 @@ export default inject(
     class App extends Component {
       render() {
         const {
-          onClickLogout,
+          //onClickLogout,
           isAuth,
           isReg,
-          users,
+          //users,
           onSubmitAuth
         } = this.props.userStore;
-        const {
-          activeNote,
-          onClickNote,
-          notesUser,
-          onClickAdd
-        } = this.props.notesStore;
+
+        // const {
+        //   activeNote,
+        //   onClickNote,
+        //   notesUser,
+        //   onClickAdd
+        // } = this.props.notesStore;
 
         const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () =>

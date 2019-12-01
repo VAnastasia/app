@@ -1,76 +1,59 @@
-import { observable, computed, action, decorate } from "mobx";
-import { userStore } from "./users";
-import firebase from "firebase/app";
-//const database = firebase.database();
+import { observable, action, decorate, computed } from "mobx";
+// import firebase from "firebase/app";
+// import "../firebase/config";
+import Firebase from "../firebase";
+
+// const database = firebase.database();
 
 class NotesStore {
-  notes = [
-    {
-      id: 1,
-      idUser: 1,
-      title: "Заметка 1",
-      text: "Текст заметки 1"
-    },
-    {
-      id: 2,
-      idUser: 2,
-      title: "Заметка 2",
-      text: "Текст заметки 2"
-    }
-  ];
+  Firebase = new Firebase();
 
-  // activeNote = this.notesUser[0];
+  notes = [];
 
-  // get notesUser() {
-  //   return userStore.isAuth
-  //     ? this.notes.filter(note => note.idUser === userStore.isAuth)
-  //     : [];
-  // }
+  async notesUpdate() {
+    const notes = await this.Firebase.getNotes();
+    return notes;
+  }
 
-  // onClickNote = id => {
-  //   return (this.notes.filter(note => note.id === id)[0]);
-  // };
+  // notes = [
+  //   {
+  //     id: 1,
+  //     title: "Заметка 1",
+  //     text: "Текст",
+  //     userId: "IhedHVK4YNPaKrECfIoYE1435d93"
+  //   }
+  // ];
 
-  // onClickNote = id => {
-  //   this.setActiveNote(id);
-  // };
+  // getNotes() {
+  //   let notesArray = [];
 
-  // get length() {
-  //   return this.notes.length;
-  // }
-
-  // onClickAdd = () => {
-  //   this.addNote({
-  //     id: this.notes.length + 1,
-  //     idUser: userStore.isAuth,
-  //     title: "Новая заметка",
-  //     text: "Текст новой заметки"
-  //   });
-  // };
-
-  // async getNotes() {
-  //   const res = await firebase
-  //     .database()
+  //   database
   //     .ref("notes/")
   //     .once("value")
   //     .then(snapshot => {
-  //       console.log(snapshot);
+  //       snapshot.forEach(obj => {
+  //         this.notes.push(obj.val());
+  //       });
+  //       console.log(this.notes);
+  //       //return notesArray;
   //     });
-  //   return res;
   // }
 
-  //notes = firebase.database().ref("notes/");
-
-  writeNoteData(userId, title, text) {
-    firebase
-      .database()
-      .ref("notes/")
-      .push({
-        userId: userId,
-        title: title,
-        text: text
-      });
-  }
+  // writeNoteData(userId, title, text) {
+  //   firebase
+  //     .database()
+  //     .ref("notes/")
+  //     .push({
+  //       id: firebase
+  //         .database()
+  //         .ref()
+  //         .child("notes")
+  //         .push().key,
+  //       userId: userId,
+  //       title: title,
+  //       text: text
+  //     });
+  // }
 
   addNote = ({ id, idUser, title, text }) => {
     this.notes.unshift({
@@ -100,6 +83,7 @@ decorate(NotesStore, {
   //notesUser: computed,
   //setActiveNote: action,
   addNote: action,
+  getNotes: action,
   onTitleChange: action,
   onTextChange: action
 });

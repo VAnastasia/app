@@ -4,8 +4,9 @@ import Header from "../../components/header";
 import NotesList from "../../components/notes-list";
 import Search from "../../components/search";
 import NoteDetails from "../../components/note-details";
+import Firebase from "../../firebase";
 
-import { observable } from "mobx";
+//import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
 export default inject(
@@ -14,14 +15,17 @@ export default inject(
 )(
   observer(
     class Main extends Component {
-      getNotes = () => {
-        const isAuth = this.props.userStore.isAuth;
-        const notes = this.props.notesStore.notes;
-        return isAuth ? notes.filter(note => note.idUser === isAuth) : [];
-      };
+      Firebase = new Firebase();
+      // getNotes = () => {
+      //   const isAuth = this.props.userStore.isAuth;
+      //   const notes = this.props.notesStore.notes;
+      //   return isAuth ? notes.filter(note => note.idUser === isAuth) : [];
+      // };
 
       state = {
-        activeNote: this.getNotes()[0] ? this.getNotes()[0].id : null
+        //notes: this.props.notesStore.getNotes(),
+        //activeNote: this.getNotes()[0] ? this.getNotes()[0].id : null
+        activeNote: null
       };
 
       onClickNote = id => {
@@ -55,9 +59,13 @@ export default inject(
         const { onTitleChange } = this.props.notesStore;
         // const activeNoteDetails = () =>
         //   this.getNotes().filter(note => note.id === this.state.activeNote)[0];
-        const activeNoteDetails = () =>
-          this.getNotes().filter(note => note.id === this.state.activeNote)[0];
+        //const activeNoteDetails = () =>
+        //this.getNotes().filter(note => note.id === this.state.activeNote)[0];
         //console.log(activeNoteDetails());
+
+        const notesUser = this.props.notesStore.notesUpdate();
+
+        this.props.notesStore.notesUpdate().then(res => console.log(res));
 
         return (
           <div className="main">
@@ -72,15 +80,15 @@ export default inject(
                 <h1>Все заметки</h1>
                 <Search />
                 <NotesList
-                  activeNote={this.state.activeNote}
+                  //activeNote={this.state.activeNote}
                   onClickNote={this.onClickNote}
-                  notesUser={this.getNotes()}
+                  notesUser={notesUser}
                   onClickAdd={this.onClickAdd}
                 />
               </div>
               <div className="main__right-column">
                 <NoteDetails
-                  activeNoteDetails={activeNoteDetails}
+                  //activeNoteDetails={activeNoteDetails}
                   onTitleChange={onTitleChange}
                 />
               </div>

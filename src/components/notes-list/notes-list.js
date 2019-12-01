@@ -7,8 +7,8 @@ export default class NotesList extends Component {
     const { activeNote, onClickNote } = this.props;
 
     return arr.map(({ id, title }) => {
-      const noteClassName =
-        activeNote === id ? "notes-item active" : "notes-item";
+      const noteClassName = "notes-item active";
+      //activeNote === id ? "notes-item active" : "notes-item";
       return (
         <li className={noteClassName} key={id} onClick={() => onClickNote(id)}>
           {title}
@@ -19,6 +19,7 @@ export default class NotesList extends Component {
 
   render() {
     const { notesUser, onClickAdd } = this.props;
+    console.log(notesUser);
     const items = this.renderItems(notesUser);
 
     return (

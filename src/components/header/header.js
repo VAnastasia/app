@@ -3,12 +3,7 @@ import "./header.css";
 import Logout from "../../components/logout/logout";
 
 export default function Header(props) {
-  const { onClickLogout, isAuth, users, userName } = props;
-  // const userName = isAuth
-  //   ? users.filter(user => user.id === isAuth)[0]
-  //     ? users.filter(user => user.id === isAuth)[0].login
-  //     : null
-  //   : null;
+  const { onClickLogout, userName } = props;
 
   return (
     <header className="header">
