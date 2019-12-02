@@ -3,62 +3,58 @@ import "./note-details.css";
 import Button from "../button";
 
 export default class NoteDetails extends Component {
-  state = {
-    title: this.props.activeNoteDetails
-      ? this.props.activeNoteDetails.title
-      : "",
-    text: this.props.activeNoteDetails
-      ? this.props.activeNoteDetails.text
-      : ""
-  };
+  onSaveNote = this.props.onSaveNote;
 
-  // state = {
-  //   title: "",
-  //   text: ""
-  // };
+  onSubmitNote(evt) {
+    evt.preventDefault();
+    console.log(evt.target.title.value, evt.target.text.value);
+    //console.log(this.onSaveNote);
 
-  onTitleChange = evt => {
-    this.setState({
-      title: evt.target.value
+    //this.onSaveNote(evt.target.title.value, evt.target.text.value);
+  }
+
+  renderItems(arr) {
+    const { activeNote } = this.props;
+
+    return arr.map(({ id, title, text }) => {
+      const noteDetailsClassName =
+        activeNote === id ? "note-details active" : "note-details";
+
+      return (
+        <form
+          className={noteDetailsClassName}
+          method="post"
+          key={id}
+          onSubmit={this.onSubmitNote}
+        >
+          <input
+            type="text"
+            name="title"
+            onChange={this.onTitleChange}
+            defaultValue={title}
+          ></input>
+          <textarea
+            onChange={this.onTextChange}
+            name="text"
+            defaultValue={text}
+          ></textarea>
+          <Button
+            type="text"
+            title="Сохранить"
+            //onClick={() => onSaveNote(id, this.state.title, this.state.text)}
+          />
+        </form>
+      );
     });
-  };
-
-  onTextChange = evt => {
-    this.setState({
-      text: evt.target.value
-    });
-  };
+  }
 
   render() {
-    // const {
-    //   id,
-    //   title,
-    //   text
-    //   //onTextChange,
-    //   //onTitleChange
-    // } = this.props.activeNoteDetails();
-
-    //const onTitleChange = this.props.onTitleChange;
-
-    console.log(this.props.activeNoteDetails);
-
-    const button = this.state.title ? (
-      <Button type="submit" title="Сохранить" />
-    ) : null;
+    const notesUser = this.props.notesUser;
 
     return (
-      <form className="note-details" method="post">
-        <input
-          type="text"
-          onChange={this.onTitleChange}
-          value={this.state.title}
-        ></input>
-        <textarea
-          onChange={this.onTextChange}
-          value={this.state.text}
-        ></textarea>
-        {button}
-      </form>
+      <div className="note-details__container">
+        {this.renderItems(notesUser)}
+      </div>
     );
   }
 }

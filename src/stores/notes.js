@@ -7,11 +7,9 @@ const database = firebase.database();
 class NotesStore {
   notes = [];
   activeNote = null;
-  activeNoteDetails = {};
   isLoading = true;
-  isLoadingActiveNote = true;
 
-  setActiveNote = (id) => this.activeNote = id;
+  setActiveNote = id => (this.activeNote = id);
 
   async getNotes() {
     const res = await database
@@ -40,30 +38,6 @@ class NotesStore {
     }
   }
 
-  async getActiveNote() {
-    const res = await database
-    .ref("notes/" + this.activeNote)
-    .once("value")
-    .then((snapshot) => {
-      const title = snapshot.child("title").val();
-      const text = snapshot.child("text").val();
-      this.activeNoteDetails.title = title;
-      this.activeNoteDetails.text = text;
-      this.isLoadingActiveNote = false;
-    })
-    .catch(error => {
-      // Handle Errors here.
-      //var errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-      // ...
-    });
-
-    
-      console.log(res);
-    
-  }
-
   writeNoteData(userId, title, text) {
     firebase
       .database()
@@ -78,27 +52,49 @@ class NotesStore {
         title: title,
         text: text
       });
+
+    this.getNotes();
   }
 
-  addNote = ({ id, idUser, title, text }) => {
-    this.notes.unshift({
-      id,
-      idUser,
-      title,
-      text
-    });
-  };
+  updateNoteData(id, title, text) {
+    firebase
+      .database()
+      .ref("notes/" + id)
+      .update({
+        title: title,
+        text: text
+      })
+      .then(this.getNotes());
+  }
 
-  onTitleChange = evt => {
-    //this.activeNote.title = evt.target.value;
-    //console.log(evt.target.value);
-    this.notes[0].title = evt.target.value;
-    console.log(this.notes[0].title);
-  };
+  deleteNoteData(id) {
+    firebase
+      .database()
+      .ref("notes/" + id)
+      .remove();
 
-  onTextChange = evt => {
-    this.activeNote.text = evt.target.value;
-  };
+    this.getNotes();
+  }
+
+  // addNote = ({ id, idUser, title, text }) => {
+  //   this.notes.unshift({
+  //     id,
+  //     idUser,
+  //     title,
+  //     text
+  //   });
+  // };
+
+  // onTitleChange = evt => {
+  //   //this.activeNote.title = evt.target.value;
+  //   //console.log(evt.target.value);
+  //   this.notes[0].title = evt.target.value;
+  //   console.log(this.notes[0].title);
+  // };
+
+  // onTextChange = evt => {
+  //   this.activeNote.text = evt.target.value;
+  // };
 }
 
 decorate(NotesStore, {

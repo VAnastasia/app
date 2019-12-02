@@ -5,7 +5,6 @@ import NotesList from "../../components/notes-list";
 import Search from "../../components/search";
 import NoteDetails from "../../components/note-details";
 
-//import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
 export default inject(
@@ -14,15 +13,7 @@ export default inject(
 )(
   observer(
     class Main extends Component {
-      // getNotes = () => {
-      //   const isAuth = this.props.userStore.isAuth;
-      //   const notes = this.props.notesStore.notes;
-      //   return isAuth ? notes.filter(note => note.idUser === isAuth) : [];
-      // };
-
       state = {
-        //notes: this.props.notesStore.getNotes(),
-        //activeNote: this.getNotes()[0] ? this.getNotes()[0].id : null
         activeNote: null
       };
 
@@ -38,18 +29,17 @@ export default inject(
         this.props.notesStore.writeNoteData(
           this.props.userStore.isAuth,
           "Новая заметка",
-          "Текст"
+          ""
         );
+      };
+
+      onSaveNote = ({ title, text, id = this.props.notesStore.activeNote }) => {
+        this.props.notesStore.updateNoteData(title, text);
+        console.log(title, text, id);
       };
 
       render() {
         const { onClickLogout, isAuth, userName } = this.props.userStore;
-        const { onTitleChange } = this.props.notesStore;
-        // const activeNoteDetails = () =>
-        //   this.getNotes().filter(note => note.id === this.state.activeNote)[0];
-        //const activeNoteDetails = () =>
-        //this.getNotes().filter(note => note.id === this.state.activeNote)[0];
-        //console.log(activeNoteDetails());
 
         if (isAuth && this.props.notesStore.isLoading) {
           this.props.notesStore.getNotes();
@@ -57,35 +47,31 @@ export default inject(
 
         let noteList = "";
         let noteDetails = "";
-       
-        
 
         if (this.props.notesStore.isLoading) {
           noteList = "Загружается...";
           noteDetails = "Загружается...";
-
         } else {
-          const notesUser = this.props.notesStore.notes.filter(note => note.userId === isAuth);
-          const activeNoteDetails = notesUser.filter(note => note.id ===        this.props.notesStore.activeNote)[0];
-          console.log(activeNoteDetails);
-          
-          noteList = <NotesList
-                      activeNote={this.props.notesStore.activeNote}
-                      onClickNote={this.onClickNote}
-                      notesUser={notesUser}
-                      onClickAdd={this.onClickAdd}
-                    />;
+          const notesUser = this.props.notesStore.notes.filter(
+            note => note.userId === isAuth
+          );
 
-          noteDetails = <NoteDetails
-                          notesUser={notesUser}
-                          //activeNote={this.props.notesStore.activeNote}
-                          activeNoteDetails={activeNoteDetails}
-                          onTitleChange={onTitleChange}
-                        />;      
-        }
+          noteList = (
+            <NotesList
+              activeNote={this.props.notesStore.activeNote}
+              onClickNote={this.onClickNote}
+              notesUser={notesUser}
+              onClickAdd={this.onClickAdd}
+            />
+          );
 
-        if (this.props.notesStore.isLoadingActiveNote && this.props.notesStore.activeNote) {
-          this.props.notesStore.getActiveNote();
+          noteDetails = (
+            <NoteDetails
+              notesUser={notesUser}
+              activeNote={this.props.notesStore.activeNote}
+              onSaveNote={this.onSaveNote}
+            />
+          );
         }
 
         return (
@@ -101,9 +87,7 @@ export default inject(
                 <Search />
                 {noteList}
               </div>
-              <div className="main__right-column">
-                {noteDetails}
-              </div>
+              <div className="main__right-column">{noteDetails}</div>
             </main>
           </div>
         );

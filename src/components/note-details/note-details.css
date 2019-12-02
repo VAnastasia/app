@@ -1,11 +1,24 @@
 .note-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
+.note-details.active {
+  position: static;
+  z-index: 1;
+}
+
+.note-details__container {
+  position: relative;
+  height: 100%;
+}
+
 .note-details input {
-  font-family: "Open Sans", sans-serif;
   font-weight: 700;
   font-size: 36px;
   padding: 5px 15px;
@@ -13,10 +26,10 @@
 }
 
 .note-details textarea {
+  font-family: "Open Sans", sans-serif;
   font-size: 24px;
   padding: 15px;
   border: none;
-  font-family: "Open Sans", sans-serif;
   font-weight: 400;
   resize: vertical;
   flex-grow: 1;
