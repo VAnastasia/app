@@ -1,59 +1,55 @@
 import { observable, action, decorate, computed } from "mobx";
-// import firebase from "firebase/app";
-// import "../firebase/config";
-import Firebase from "../firebase";
+import firebase from "firebase/app";
+import "../firebase/config";
 
-// const database = firebase.database();
+const database = firebase.database();
 
 class NotesStore {
-  Firebase = new Firebase();
-
   notes = [];
+  isLoading = true;
 
-  async notesUpdate() {
-    const notes = await this.Firebase.getNotes();
-    return notes;
+  async getNotes() {
+    const res = await database
+      .ref("notes/")
+      .once("value")
+      .then(snapshot => {
+        this.notes = [];
+        snapshot.forEach(obj => {
+          this.notes.push(obj.val());
+        });
+
+        this.isLoading = false;
+      })
+      .catch(error => {
+        // Handle Errors here.
+        //var errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        // ...
+      });
+
+    if (res) {
+      console.log(res);
+      //this.isLoading = false;
+      console.log(this.isLoading, this.notes);
+    }
   }
 
-  // notes = [
-  //   {
-  //     id: 1,
-  //     title: "Заметка 1",
-  //     text: "Текст",
-  //     userId: "IhedHVK4YNPaKrECfIoYE1435d93"
-  //   }
-  // ];
-
-  // getNotes() {
-  //   let notesArray = [];
-
-  //   database
-  //     .ref("notes/")
-  //     .once("value")
-  //     .then(snapshot => {
-  //       snapshot.forEach(obj => {
-  //         this.notes.push(obj.val());
-  //       });
-  //       console.log(this.notes);
-  //       //return notesArray;
-  //     });
-  // }
-
-  // writeNoteData(userId, title, text) {
-  //   firebase
-  //     .database()
-  //     .ref("notes/")
-  //     .push({
-  //       id: firebase
-  //         .database()
-  //         .ref()
-  //         .child("notes")
-  //         .push().key,
-  //       userId: userId,
-  //       title: title,
-  //       text: text
-  //     });
-  // }
+  writeNoteData(userId, title, text) {
+    firebase
+      .database()
+      .ref("notes/")
+      .push({
+        id: firebase
+          .database()
+          .ref()
+          .child("notes")
+          .push().key,
+        userId: userId,
+        title: title,
+        text: text
+      });
+  }
 
   addNote = ({ id, idUser, title, text }) => {
     this.notes.unshift({
@@ -78,6 +74,7 @@ class NotesStore {
 
 decorate(NotesStore, {
   notes: observable,
+  isLoading: observable,
   //activeNote: observable,
   //length: computed,
   //notesUser: computed,

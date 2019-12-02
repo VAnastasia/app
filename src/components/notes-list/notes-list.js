@@ -7,8 +7,8 @@ export default class NotesList extends Component {
     const { activeNote, onClickNote } = this.props;
 
     return arr.map(({ id, title }) => {
-      const noteClassName = "notes-item active";
-      //activeNote === id ? "notes-item active" : "notes-item";
+      const noteClassName =
+        activeNote === id ? "notes-item active" : "notes-item";
       return (
         <li className={noteClassName} key={id} onClick={() => onClickNote(id)}>
           {title}

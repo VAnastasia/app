@@ -2,11 +2,7 @@ import { observable, action, decorate } from "mobx";
 import firebase from "firebase/app";
 import "../firebase/config";
 
-import Firebase from "../firebase";
-
 class UserStore {
-  //Firebase = new Firebase();
-
   isAuth = null;
   isReg = false;
   userName = "";
@@ -29,7 +25,7 @@ class UserStore {
     }
   }
 
-  onSubmitRegister(evt) {
+  onSubmitRegister = evt => {
     evt.preventDefault();
 
     const user = {
@@ -38,7 +34,7 @@ class UserStore {
     };
 
     this.registerUser(user);
-  }
+  };
 
   setUser = id => {
     this.isAuth = id;
@@ -71,13 +67,6 @@ class UserStore {
       email: document.forms[0].elements.login.value,
       password: document.forms[0].elements.password.value
     };
-    // const email = document.forms[0].elements.login.value;
-    // const password = document.forms[0].elements.password.value;
-    // const user = this.users.filter(user => user.login === login)[0];
-
-    // if (user.password === password) {
-    //   this.setUser(user.id);
-    // }
 
     this.signIn(user);
     this.isAuth = user.uid;
@@ -85,10 +74,9 @@ class UserStore {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log(user.uid);
-
         this.isAuth = user.uid;
         this.userName = user.email;
+        console.log(user.uid);
 
         // User is signed in.
       } else {
