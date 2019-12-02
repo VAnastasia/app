@@ -19,7 +19,6 @@ export default class NotesList extends Component {
 
   render() {
     const { notesUser, onClickAdd } = this.props;
-    console.log(notesUser);
     const items = this.renderItems(notesUser);
 
     return (

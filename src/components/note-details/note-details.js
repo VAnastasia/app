@@ -3,19 +3,19 @@ import "./note-details.css";
 import Button from "../button";
 
 export default class NoteDetails extends Component {
-  // state = {
-  //   title: this.props.activeNoteDetails()
-  //     ? this.props.activeNoteDetails().title
-  //     : "",
-  //   text: this.props.activeNoteDetails()
-  //     ? this.props.activeNoteDetails().text
-  //     : ""
-  // };
-
   state = {
-    title: "",
-    text: ""
+    title: this.props.activeNoteDetails
+      ? this.props.activeNoteDetails.title
+      : "",
+    text: this.props.activeNoteDetails
+      ? this.props.activeNoteDetails.text
+      : ""
   };
+
+  // state = {
+  //   title: "",
+  //   text: ""
+  // };
 
   onTitleChange = evt => {
     this.setState({
@@ -40,7 +40,7 @@ export default class NoteDetails extends Component {
 
     //const onTitleChange = this.props.onTitleChange;
 
-    //console.log(this.props.activeNoteDetails());
+    console.log(this.props.activeNoteDetails);
 
     const button = this.state.title ? (
       <Button type="submit" title="Сохранить" />

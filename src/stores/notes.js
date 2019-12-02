@@ -1,4 +1,4 @@
-import { observable, action, decorate, computed } from "mobx";
+import { observable, action, decorate } from "mobx";
 import firebase from "firebase/app";
 import "../firebase/config";
 
@@ -6,7 +6,12 @@ const database = firebase.database();
 
 class NotesStore {
   notes = [];
+  activeNote = null;
+  activeNoteDetails = {};
   isLoading = true;
+  isLoadingActiveNote = true;
+
+  setActiveNote = (id) => this.activeNote = id;
 
   async getNotes() {
     const res = await database
@@ -33,6 +38,30 @@ class NotesStore {
       //this.isLoading = false;
       console.log(this.isLoading, this.notes);
     }
+  }
+
+  async getActiveNote() {
+    const res = await database
+    .ref("notes/" + this.activeNote)
+    .once("value")
+    .then((snapshot) => {
+      const title = snapshot.child("title").val();
+      const text = snapshot.child("text").val();
+      this.activeNoteDetails.title = title;
+      this.activeNoteDetails.text = text;
+      this.isLoadingActiveNote = false;
+    })
+    .catch(error => {
+      // Handle Errors here.
+      //var errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+      // ...
+    });
+
+    
+      console.log(res);
+    
   }
 
   writeNoteData(userId, title, text) {
@@ -75,10 +104,9 @@ class NotesStore {
 decorate(NotesStore, {
   notes: observable,
   isLoading: observable,
-  //activeNote: observable,
-  //length: computed,
-  //notesUser: computed,
-  //setActiveNote: action,
+  activeNote: observable,
+  activeNoteDetails: observable,
+  setActiveNote: action,
   addNote: action,
   getNotes: action,
   onTitleChange: action,
