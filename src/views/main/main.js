@@ -33,8 +33,13 @@ export default inject(
         );
       };
 
-      onSaveNote = ({ title, text, id = this.props.notesStore.activeNote }) => {
-        this.props.notesStore.updateNoteData(title, text);
+      onSaveNote = ({
+        title,
+        text,
+        id = this.props.notesStore.activeNote,
+        userId = this.props.notesStore.isAuth
+      }) => {
+        this.props.notesStore.updateNoteData(title, text, id, userId);
         console.log(title, text, id);
       };
 
@@ -44,6 +49,13 @@ export default inject(
         if (isAuth && this.props.notesStore.isLoading) {
           this.props.notesStore.getNotes();
         }
+
+        // this.props.notesStore.updateNoteData(
+        //   "New",
+        //   "",
+        //   this.props.notesStore.activeNote,
+        //   this.props.userStore.isAuth
+        // );
 
         let noteList = "";
         let noteDetails = "";

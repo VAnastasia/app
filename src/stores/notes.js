@@ -56,13 +56,15 @@ class NotesStore {
     this.getNotes();
   }
 
-  updateNoteData(id, title, text) {
+  updateNoteData(title, text, id, userId) {
     firebase
       .database()
       .ref("notes/" + id)
-      .update({
+      .set({
+        id: id,
         title: title,
-        text: text
+        text: text,
+        userId: userId
       })
       .then(this.getNotes());
   }

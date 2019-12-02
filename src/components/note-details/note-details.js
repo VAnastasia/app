@@ -10,7 +10,7 @@ export default class NoteDetails extends Component {
     console.log(evt.target.title.value, evt.target.text.value);
     //console.log(this.onSaveNote);
 
-    //this.onSaveNote(evt.target.title.value, evt.target.text.value);
+    //this.props.onSaveNote(evt.target.title.value, evt.target.text.value);
   }
 
   renderItems(arr) {
