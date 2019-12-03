@@ -33,15 +33,26 @@ export default inject(
         );
       };
 
-      onSaveNote = ({
-        title,
-        text,
-        id = this.props.notesStore.activeNote,
-        userId = this.props.notesStore.isAuth
-      }) => {
+      onSaveNote = (title, text, id, userId) => {
         this.props.notesStore.updateNoteData(title, text, id, userId);
         console.log(title, text, id);
       };
+
+      onSubmitNote = evt => {
+        evt.preventDefault();
+
+        this.onSaveNote(
+          evt.target.title.value,
+          evt.target.text.value,
+          evt.target.id.value,
+          this.props.notesStore.isAuth
+        );
+      };
+
+      // onClickLogout = () => {
+      //   this.props.notesStore.deleteNotes();
+      //   this.props.userStore.onClickLogout();
+      // };
 
       render() {
         const { onClickLogout, isAuth, userName } = this.props.userStore;
@@ -49,13 +60,6 @@ export default inject(
         if (isAuth && this.props.notesStore.isLoading) {
           this.props.notesStore.getNotes();
         }
-
-        // this.props.notesStore.updateNoteData(
-        //   "New",
-        //   "",
-        //   this.props.notesStore.activeNote,
-        //   this.props.userStore.isAuth
-        // );
 
         let noteList = "";
         let noteDetails = "";
@@ -82,6 +86,7 @@ export default inject(
               notesUser={notesUser}
               activeNote={this.props.notesStore.activeNote}
               onSaveNote={this.onSaveNote}
+              onSubmitNote={this.onSubmitNote}
             />
           );
         }

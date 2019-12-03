@@ -8,6 +8,7 @@ class NotesStore {
   notes = [];
   activeNote = null;
   isLoading = true;
+  deleteNotes = () => (this.notes = []);
 
   setActiveNote = id => (this.activeNote = id);
 
@@ -18,17 +19,16 @@ class NotesStore {
       .then(snapshot => {
         this.notes = [];
         snapshot.forEach(obj => {
-          this.notes.push(obj.val());
+          const note = obj.val();
+          note.id = obj.key;
+          this.notes.push(note);
         });
 
         this.isLoading = false;
       })
       .catch(error => {
-        // Handle Errors here.
-        //var errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
-        // ...
       });
 
     if (res) {
@@ -43,11 +43,6 @@ class NotesStore {
       .database()
       .ref("notes/")
       .push({
-        id: firebase
-          .database()
-          .ref()
-          .child("notes")
-          .push().key,
         userId: userId,
         title: title,
         text: text
@@ -60,11 +55,10 @@ class NotesStore {
     firebase
       .database()
       .ref("notes/" + id)
-      .set({
-        id: id,
+      .update({
         title: title,
-        text: text,
-        userId: userId
+        text: text
+        //userId: userId
       })
       .then(this.getNotes());
   }

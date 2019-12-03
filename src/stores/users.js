@@ -12,13 +12,9 @@ class UserStore {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .catch(error => {
-        // Handle Errors here.
-        //var errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
-        // ...
       });
-    console.log(user);
 
     if (user) {
       this.isReg = true;
@@ -41,8 +37,6 @@ class UserStore {
   };
 
   onClickLogout = () => {
-    //this.setUser(null);
-
     this.isAuth = null;
     this.userName = "";
     this.isReg = false;
@@ -53,11 +47,10 @@ class UserStore {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        this.isAuth = null;
+        this.userName = "";
+        const errorMessage = error.message;
         alert(errorMessage);
-        // ...
       });
   }
 
@@ -69,18 +62,14 @@ class UserStore {
     };
 
     this.signIn(user);
-    this.isAuth = user.uid;
-    this.userName = user.email;
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuth = user.uid;
         this.userName = user.email;
-        console.log(user.uid);
-
-        // User is signed in.
       } else {
-        // No user is signed in.
+        this.isAuth = null;
+        this.userName = "";
       }
     });
   };

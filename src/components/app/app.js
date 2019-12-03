@@ -15,20 +15,7 @@ export default inject(
   observer(
     class App extends Component {
       render() {
-        const {
-          //onClickLogout,
-          isAuth,
-          isReg,
-          //users,
-          onSubmitAuth
-        } = this.props.userStore;
-
-        // const {
-        //   activeNote,
-        //   onClickNote,
-        //   notesUser,
-        //   onClickAdd
-        // } = this.props.notesStore;
+        const { isAuth, isReg, onSubmitAuth } = this.props.userStore;
 
         const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () =>

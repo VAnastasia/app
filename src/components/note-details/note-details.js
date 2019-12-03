@@ -3,18 +3,8 @@ import "./note-details.css";
 import Button from "../button";
 
 export default class NoteDetails extends Component {
-  onSaveNote = this.props.onSaveNote;
-
-  onSubmitNote(evt) {
-    evt.preventDefault();
-    console.log(evt.target.title.value, evt.target.text.value);
-    //console.log(this.onSaveNote);
-
-    //this.props.onSaveNote(evt.target.title.value, evt.target.text.value);
-  }
-
   renderItems(arr) {
-    const { activeNote } = this.props;
+    const { activeNote, onSubmitNote } = this.props;
 
     return arr.map(({ id, title, text }) => {
       const noteDetailsClassName =
@@ -25,24 +15,12 @@ export default class NoteDetails extends Component {
           className={noteDetailsClassName}
           method="post"
           key={id}
-          onSubmit={this.onSubmitNote}
+          onSubmit={onSubmitNote}
         >
-          <input
-            type="text"
-            name="title"
-            onChange={this.onTitleChange}
-            defaultValue={title}
-          ></input>
-          <textarea
-            onChange={this.onTextChange}
-            name="text"
-            defaultValue={text}
-          ></textarea>
-          <Button
-            type="text"
-            title="Сохранить"
-            //onClick={() => onSaveNote(id, this.state.title, this.state.text)}
-          />
+          <input type="text" name="title" defaultValue={title} />
+          <textarea name="text" defaultValue={text}></textarea>
+          <input type="hidden" value={id} name="id" />
+          <Button type="text" title="Сохранить" />
         </form>
       );
     });
