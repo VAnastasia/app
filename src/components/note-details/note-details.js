@@ -4,7 +4,7 @@ import Button from "../button";
 
 export default class NoteDetails extends Component {
   renderItems(arr) {
-    const { activeNote, onSubmitNote } = this.props;
+    const { activeNote, onSubmitNote, onDeleteNote } = this.props;
 
     return arr.map(({ id, title, text }) => {
       const noteDetailsClassName =
@@ -21,6 +21,11 @@ export default class NoteDetails extends Component {
           <textarea name="text" defaultValue={text}></textarea>
           <input type="hidden" value={id} name="id" />
           <Button type="text" title="Сохранить" />
+          <button
+            className="note-details__delete"
+            title="Удалить"
+            onClick={() => onDeleteNote(id)}
+          />
         </form>
       );
     });

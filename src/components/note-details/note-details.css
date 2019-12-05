@@ -34,3 +34,33 @@
   resize: vertical;
   flex-grow: 1;
 }
+
+.note-details__delete {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: 1px solid #1d2e5b;
+}
+
+.note-details__delete::before,
+.note-details__delete::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 7px;
+  height: 2px;
+  width: 25px;
+  background-color: #1d2e5b;
+}
+
+.note-details__delete::before {
+  transform: rotate(45deg);
+}
+
+.note-details__delete::after {
+  transform: rotate(-45deg);
+}

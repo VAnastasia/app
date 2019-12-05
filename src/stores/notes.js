@@ -14,10 +14,10 @@ class NotesStore {
 
   onLogout = () => {
     this.notes = [];
-  }
+  };
 
-  async getNotes() {
-    const res = await database
+  getNotes() {
+    database
       .ref("notes/")
       .once("value")
       .then(snapshot => {
@@ -34,12 +34,6 @@ class NotesStore {
         const errorMessage = error.message;
         alert(errorMessage);
       });
-
-    if (res) {
-      console.log(res);
-      //this.isLoading = false;
-      console.log(this.isLoading, this.notes);
-    }
   }
 
   writeNoteData(userId, title, text) {
@@ -50,51 +44,40 @@ class NotesStore {
         userId: userId,
         title: title,
         text: text
+      })
+      .then(this.getNotes())
+      .catch(error => {
+        const errorMessage = error.message;
+        alert(errorMessage);
       });
-
-    this.getNotes();
   }
 
-  updateNoteData(title, text, id, userId) {
+  updateNoteData(title, text, id) {
     firebase
       .database()
       .ref("notes/" + id)
       .update({
         title: title,
         text: text
-        //userId: userId
       })
-      .then(this.getNotes());
+      .then(this.getNotes())
+      .catch(error => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   }
 
-  deleteNoteData(id) {
+  deleteNote(id) {
     firebase
       .database()
       .ref("notes/" + id)
-      .remove();
-
-    this.getNotes();
+      .remove()
+      .then(this.getNotes())
+      .catch(error => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   }
-
-  // addNote = ({ id, idUser, title, text }) => {
-  //   this.notes.unshift({
-  //     id,
-  //     idUser,
-  //     title,
-  //     text
-  //   });
-  // };
-
-  // onTitleChange = evt => {
-  //   //this.activeNote.title = evt.target.value;
-  //   //console.log(evt.target.value);
-  //   this.notes[0].title = evt.target.value;
-  //   console.log(this.notes[0].title);
-  // };
-
-  // onTextChange = evt => {
-  //   this.activeNote.text = evt.target.value;
-  // };
 }
 
 decorate(NotesStore, {

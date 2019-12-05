@@ -48,12 +48,20 @@ export default inject(
         );
       };
 
+      onDeleteNote = id => {
+        this.props.notesStore.deleteNote(id);
+      };
+
+      componentDidMount() {
+        this.props.notesStore.getNotes();
+      }
+
       render() {
         const { onClickLogout, isAuth, userName } = this.props.userStore;
-       
-        if (isAuth && this.props.notesStore.isLoading) {
-          this.props.notesStore.getNotes();
-        }
+
+        // if (isAuth && this.props.notesStore.isLoading) {
+        //   this.props.notesStore.getNotes();
+        // }
 
         let noteList = "";
         let notesUser = [];
@@ -94,6 +102,7 @@ export default inject(
                   activeNote={this.props.notesStore.activeNote}
                   onSaveNote={this.onSaveNote}
                   onSubmitNote={this.onSubmitNote}
+                  onDeleteNote={this.onDeleteNote}
                 />
               </div>
             </main>
