@@ -16,7 +16,7 @@ export default inject(
     class App extends Component {
       render() {
         const { isAuth, isReg, onSubmitAuth } = this.props.userStore;
-
+        
         const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () =>
           isAuth ? <Redirect to="/" /> : <Auth onSubmitAuth={onSubmitAuth} />;

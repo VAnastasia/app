@@ -3,9 +3,9 @@ import firebase from "firebase/app";
 import "../firebase/config";
 
 class UserStore {
-  isAuth = null;
+  isAuth = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : null;
   isReg = false;
-  userName = "";
+  userName = localStorage.getItem("user_name") ? localStorage.getItem("user_name") : "";
 
   async registerUser({ email, password }) {
     const user = await firebase
@@ -14,7 +14,7 @@ class UserStore {
       .catch(error => {
         const errorMessage = error.message;
         alert(errorMessage);
-      });
+      });  
 
     if (user) {
       this.isReg = true;
@@ -40,15 +40,34 @@ class UserStore {
     this.isAuth = null;
     this.userName = "";
     this.isReg = false;
+    localStorage.clear();
+
+    this.signOut();
   };
 
-  async signIn({ email, password }) {
+  signOut() {
+    firebase
+    .auth()
+    .signOut()
+    .then(function() {
+      // Sign-out successful.
+    })
+    .catch(function(error) {
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+  }
+
+  
+
+  signIn({ email, password }) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
         this.isAuth = null;
         this.userName = "";
+        localStorage.clear();
         const errorMessage = error.message;
         alert(errorMessage);
       });
@@ -67,6 +86,8 @@ class UserStore {
       if (user) {
         this.isAuth = user.uid;
         this.userName = user.email;
+        localStorage.setItem("user_id", user.uid);
+        localStorage.setItem("user_name", user.email)
       } else {
         this.isAuth = null;
         this.userName = "";
@@ -80,6 +101,7 @@ decorate(UserStore, {
   isAuth: observable,
   isReg: observable,
   userName: observable,
+  errorMessage: observable,
   setUser: action,
   onClickLogout: action,
   onSubmitAuth: action

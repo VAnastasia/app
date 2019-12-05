@@ -35,7 +35,6 @@ export default inject(
 
       onSaveNote = (title, text, id, userId) => {
         this.props.notesStore.updateNoteData(title, text, id, userId);
-        console.log(title, text, id);
       };
 
       onSubmitNote = evt => {
@@ -49,26 +48,20 @@ export default inject(
         );
       };
 
-      // onClickLogout = () => {
-      //   this.props.notesStore.deleteNotes();
-      //   this.props.userStore.onClickLogout();
-      // };
-
       render() {
         const { onClickLogout, isAuth, userName } = this.props.userStore;
-
+       
         if (isAuth && this.props.notesStore.isLoading) {
           this.props.notesStore.getNotes();
         }
 
         let noteList = "";
-        let noteDetails = "";
+        let notesUser = [];
 
         if (this.props.notesStore.isLoading) {
           noteList = "Загружается...";
-          noteDetails = "Загружается...";
         } else {
-          const notesUser = this.props.notesStore.notes.filter(
+          notesUser = this.props.notesStore.notes.filter(
             note => note.userId === isAuth
           );
 
@@ -78,15 +71,6 @@ export default inject(
               onClickNote={this.onClickNote}
               notesUser={notesUser}
               onClickAdd={this.onClickAdd}
-            />
-          );
-
-          noteDetails = (
-            <NoteDetails
-              notesUser={notesUser}
-              activeNote={this.props.notesStore.activeNote}
-              onSaveNote={this.onSaveNote}
-              onSubmitNote={this.onSubmitNote}
             />
           );
         }
@@ -104,7 +88,14 @@ export default inject(
                 <Search />
                 {noteList}
               </div>
-              <div className="main__right-column">{noteDetails}</div>
+              <div className="main__right-column">
+                <NoteDetails
+                  notesUser={notesUser}
+                  activeNote={this.props.notesStore.activeNote}
+                  onSaveNote={this.onSaveNote}
+                  onSubmitNote={this.onSubmitNote}
+                />
+              </div>
             </main>
           </div>
         );

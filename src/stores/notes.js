@@ -12,6 +12,10 @@ class NotesStore {
 
   setActiveNote = id => (this.activeNote = id);
 
+  onLogout = () => {
+    this.notes = [];
+  }
+
   async getNotes() {
     const res = await database
       .ref("notes/")
@@ -98,6 +102,7 @@ decorate(NotesStore, {
   isLoading: observable,
   activeNote: observable,
   activeNoteDetails: observable,
+  onLogout: action,
   setActiveNote: action,
   addNote: action,
   getNotes: action,
