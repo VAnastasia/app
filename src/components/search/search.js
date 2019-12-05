@@ -6,9 +6,20 @@ export default class Search extends Component {
   render() {
     return (
       <form className="search" method="get">
-        <input type="text" placeholder="Поиск"></input>
+        <input
+          type="text"
+          placeholder="Поиск"
+          name="search"
+          onChange={this.props.onSearch}
+        />
         <button type="submit">
-          <img src={icon} alt="search" width="20" height="20" className="search__icon"></img>
+          <img
+            src={icon}
+            alt="search"
+            width="20"
+            height="20"
+            className="search__icon"
+          ></img>
         </button>
       </form>
     );

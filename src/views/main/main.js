@@ -33,8 +33,8 @@ export default inject(
         );
       };
 
-      onSaveNote = (title, text, id, userId) => {
-        this.props.notesStore.updateNoteData(title, text, id, userId);
+      onSaveNote = (title, text, id) => {
+        this.props.notesStore.updateNoteData(title, text, id);
       };
 
       onSubmitNote = evt => {
@@ -50,6 +50,26 @@ export default inject(
 
       onDeleteNote = id => {
         this.props.notesStore.deleteNote(id);
+      };
+
+      onSearch = evt => {
+        evt.preventDefault();
+
+        if (!evt.target.value) {
+          this.props.notesStore.getNotes();
+        }
+
+        const term = evt.target.value.toLowerCase();
+
+        const filtredNotes = this.props.notesStore.notes
+          .slice()
+          .filter(note => {
+            return (
+              note.title.toLowerCase().indexOf(term) > -1 ||
+              note.text.toLowerCase().indexOf(term) > -1
+            );
+          });
+        return this.props.notesStore.onSearch(filtredNotes);
       };
 
       componentDidMount() {
@@ -93,7 +113,7 @@ export default inject(
             <main>
               <div className="main__left-column">
                 <h1>Все заметки</h1>
-                <Search />
+                <Search onSearch={this.onSearch} />
                 {noteList}
               </div>
               <div className="main__right-column">

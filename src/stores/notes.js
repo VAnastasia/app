@@ -8,12 +8,15 @@ class NotesStore {
   notes = [];
   activeNote = null;
   isLoading = true;
-  deleteNotes = () => (this.notes = []);
 
   setActiveNote = id => (this.activeNote = id);
 
   onLogout = () => {
     this.notes = [];
+  };
+
+  onSearch = filtredNotes => {
+    this.notes = filtredNotes;
   };
 
   getNotes() {
@@ -23,9 +26,11 @@ class NotesStore {
       .then(snapshot => {
         this.notes = [];
         snapshot.forEach(obj => {
-          const note = obj.val();
-          note.id = obj.key;
-          this.notes.push(note);
+          if (obj.val().userId === localStorage.getItem("user_id")) {
+            const note = obj.val();
+            note.id = obj.key;
+            this.notes.push(note);
+          }
         });
 
         this.isLoading = false;
