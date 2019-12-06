@@ -14,12 +14,22 @@ export default inject(
   observer(
     class Routes extends Component {
       render() {
-        const { isAuth, isReg, onSubmitAuth } = this.props.userStore;
-        
+        const {
+          isAuth,
+          isReg,
+          onSubmitAuth,
+          onSubmitRegister
+        } = this.props.userStore;
+
         const screen = () => (isAuth ? <Main /> : <Welcome />);
         const auth = () =>
           isAuth ? <Redirect to="/" /> : <Auth onSubmitAuth={onSubmitAuth} />;
-        const register = () => (isReg ? <Redirect to="/auth" /> : <Register />);
+        const register = () =>
+          isReg ? (
+            <Redirect to="/auth" />
+          ) : (
+            <Register onSubmitRegister={onSubmitRegister} />
+          );
 
         return (
           <BrowserRouter>

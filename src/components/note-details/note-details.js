@@ -20,12 +20,14 @@ export default class NoteDetails extends Component {
           <input type="text" name="title" defaultValue={title} />
           <textarea name="text" defaultValue={text}></textarea>
           <input type="hidden" value={id} name="id" />
-          <Button type="text" title="Сохранить" />
-          <button
-            className="note-details__delete"
-            title="Удалить"
-            onClick={() => onDeleteNote(id)}
-          />
+          <div className="note-details__buttons">
+            <Button type="submit" title="Сохранить" />
+            <Button
+              type="button"
+              title="Удалить"
+              onClick={() => onDeleteNote(id)}
+            />
+          </div>
         </form>
       );
     });

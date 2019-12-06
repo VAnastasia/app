@@ -1,10 +1,8 @@
 import React from "react";
 import "./header.css";
-import Logout from "../../components/logout/logout";
+import Logout from "../../components/logout";
 
-export default function Header(props) {
-  const { onClickLogout, userName } = props;
-
+export default function Header({ onClickLogout, userName }) {
   return (
     <header className="header">
       <nav>
