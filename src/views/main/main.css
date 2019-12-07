@@ -8,8 +8,23 @@
   padding-bottom: 20px;
 }
 
-.main h1 {
-  text-align: left;
+.main__sort {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  height: 30px;
+  width: 34px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+}
+
+.main__sort.up img {
+  transform: rotate(180deg);
+}
+
+.main__sort.down img {
+  transform: rotate(0);
 }
 
 .main main {
@@ -26,6 +41,7 @@
 }
 
 .main__left-column {
+  position: relative;
   width: 30%;
   border-radius: 20px;
   background-color: #ffffff;
@@ -34,7 +50,9 @@
 
 .main__left-column h1 {
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-right: 35px;
   font-size: 32px;
 }
 

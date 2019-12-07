@@ -4,6 +4,7 @@ import Header from "../../components/header";
 import NotesList from "../../components/notes-list";
 import Search from "../../components/search";
 import NoteDetails from "../../components/note-details";
+import img from "./down-icon.svg";
 
 import { observer, inject } from "mobx-react";
 
@@ -13,6 +14,16 @@ export default inject(
 )(
   observer(
     class Main extends Component {
+      state = {
+        sortDate: true
+      };
+
+      onSortDate = () => {
+        this.setState({
+          sortDate: !this.state.sortDate
+        });
+      };
+
       onClickNote = id => {
         this.props.notesStore.setActiveNote(id);
       };
@@ -79,11 +90,22 @@ export default inject(
 
         let noteList = "";
         let notesUser = [];
+        let classNameButtonSort = "main__sort";
 
         if (isLoading) {
           noteList = "Загружается...";
         } else {
           notesUser = notes.slice().sort((a, b) => b.date - a.date);
+
+          if (this.state.sortDate) {
+            notesUser = notes.slice().sort((a, b) => b.date - a.date);
+            classNameButtonSort = "main__sort down";
+          }
+
+          if (!this.state.sortDate) {
+            notesUser = notes.slice().sort((a, b) => a.date - b.date);
+            classNameButtonSort = "main__sort up";
+          }
 
           noteList = (
             <NotesList
@@ -104,10 +126,23 @@ export default inject(
             />
             <main>
               <div className="main__left-column">
-                <Search onSearch={this.onSearch} />
                 <h1>
-                  Все заметки<sup>{notesUser.length}</sup>
+                  Все заметки
+                  <sup>{notesUser.length}</sup>
                 </h1>
+                <button
+                  className={classNameButtonSort}
+                  onClick={this.onSortDate}
+                >
+                  <img
+                    src={img}
+                    width="16"
+                    height="16"
+                    alt="up-down"
+                    title="Сортировка по дате"
+                  />
+                </button>
+                <Search onSearch={this.onSearch} />
                 {noteList}
               </div>
               <div className="main__right-column">
