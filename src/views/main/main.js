@@ -13,16 +13,8 @@ export default inject(
 )(
   observer(
     class Main extends Component {
-      state = {
-        activeNote: null
-      };
-
       onClickNote = id => {
         this.props.notesStore.setActiveNote(id);
-
-        this.setState({
-          activeNote: id
-        });
       };
 
       onClickAdd = () => {
@@ -55,6 +47,10 @@ export default inject(
       onSearch = evt => {
         evt.preventDefault();
 
+        this.setState({
+          isSearching: true
+        });
+
         if (!evt.target.value) {
           this.props.notesStore.getNotes();
         }
@@ -69,6 +65,7 @@ export default inject(
               note.text.toLowerCase().indexOf(term) > -1
             );
           });
+
         return this.props.notesStore.onSearch(filtredNotes);
       };
 
@@ -78,24 +75,19 @@ export default inject(
 
       render() {
         const { onClickLogout, isAuth, userName } = this.props.userStore;
-
-        // if (isAuth && this.props.notesStore.isLoading) {
-        //   this.props.notesStore.getNotes();
-        // }
+        const { isLoading, notes, activeNote } = this.props.notesStore;
 
         let noteList = "";
         let notesUser = [];
 
-        if (this.props.notesStore.isLoading) {
+        if (isLoading) {
           noteList = "Загружается...";
         } else {
-          notesUser = this.props.notesStore.notes.filter(
-            note => note.userId === isAuth
-          );
+          notesUser = notes.slice();
 
           noteList = (
             <NotesList
-              activeNote={this.props.notesStore.activeNote}
+              activeNote={activeNote}
               onClickNote={this.onClickNote}
               notesUser={notesUser}
               onClickAdd={this.onClickAdd}
@@ -119,7 +111,7 @@ export default inject(
               <div className="main__right-column">
                 <NoteDetails
                   notesUser={notesUser}
-                  activeNote={this.props.notesStore.activeNote}
+                  activeNote={activeNote}
                   onSaveNote={this.onSaveNote}
                   onSubmitNote={this.onSubmitNote}
                   onDeleteNote={this.onDeleteNote}
