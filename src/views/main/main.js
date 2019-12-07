@@ -4,6 +4,7 @@ import Header from "../../components/header";
 import NotesList from "../../components/notes-list";
 import Search from "../../components/search";
 import NoteDetails from "../../components/note-details";
+import Spinner from "../../components/spinner";
 import img from "./down-icon.svg";
 
 import { observer, inject } from "mobx-react";
@@ -55,6 +56,11 @@ export default inject(
         this.props.notesStore.deleteNote(id);
       };
 
+      onClickLogout = () => {
+        this.props.userStore.onClickLogout();
+        this.props.notesStore.clearNotes();
+      };
+
       onSearch = evt => {
         evt.preventDefault();
 
@@ -85,42 +91,29 @@ export default inject(
       }
 
       render() {
-        const { onClickLogout, isAuth, userName } = this.props.userStore;
+        const { isAuth, userName } = this.props.userStore;
         const { isLoading, notes, activeNote } = this.props.notesStore;
 
-        let noteList = "";
         let notesUser = [];
         let classNameButtonSort = "main__sort";
+        const spinner = isLoading ? <Spinner /> : null;
 
-        if (isLoading) {
-          noteList = "Загружается...";
-        } else {
+        notesUser = notes.slice().sort((a, b) => b.date - a.date);
+
+        if (this.state.sortDate) {
           notesUser = notes.slice().sort((a, b) => b.date - a.date);
+          classNameButtonSort = "main__sort down";
+        }
 
-          if (this.state.sortDate) {
-            notesUser = notes.slice().sort((a, b) => b.date - a.date);
-            classNameButtonSort = "main__sort down";
-          }
-
-          if (!this.state.sortDate) {
-            notesUser = notes.slice().sort((a, b) => a.date - b.date);
-            classNameButtonSort = "main__sort up";
-          }
-
-          noteList = (
-            <NotesList
-              activeNote={activeNote}
-              onClickNote={this.onClickNote}
-              notesUser={notesUser}
-              onClickAdd={this.onClickAdd}
-            />
-          );
+        if (!this.state.sortDate) {
+          notesUser = notes.slice().sort((a, b) => a.date - b.date);
+          classNameButtonSort = "main__sort up";
         }
 
         return (
           <div className="main">
             <Header
-              onClickLogout={onClickLogout}
+              onClickLogout={this.onClickLogout}
               isAuth={isAuth}
               userName={userName}
             />
@@ -143,7 +136,12 @@ export default inject(
                   />
                 </button>
                 <Search onSearch={this.onSearch} />
-                {noteList}
+                <NotesList
+                  activeNote={activeNote}
+                  onClickNote={this.onClickNote}
+                  notesUser={notesUser}
+                  onClickAdd={this.onClickAdd}
+                />
               </div>
               <div className="main__right-column">
                 <NoteDetails
@@ -155,6 +153,7 @@ export default inject(
                 />
               </div>
             </main>
+            {spinner}
           </div>
         );
       }

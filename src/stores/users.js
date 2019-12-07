@@ -3,9 +3,13 @@ import firebase from "firebase/app";
 import "../firebase/config";
 
 class UserStore {
-  isAuth = localStorage.getItem("user_id") ? localStorage.getItem("user_id") : null;
+  isAuth = localStorage.getItem("user_id")
+    ? localStorage.getItem("user_id")
+    : null;
   isReg = false;
-  userName = localStorage.getItem("user_name") ? localStorage.getItem("user_name") : "";
+  userName = localStorage.getItem("user_name")
+    ? localStorage.getItem("user_name")
+    : "";
 
   async registerUser({ email, password }) {
     const user = await firebase
@@ -14,7 +18,7 @@ class UserStore {
       .catch(error => {
         const errorMessage = error.message;
         alert(errorMessage);
-      });  
+      });
 
     if (user) {
       this.isReg = true;
@@ -47,18 +51,16 @@ class UserStore {
 
   signOut() {
     firebase
-    .auth()
-    .signOut()
-    .then(function() {
-      // Sign-out successful.
-    })
-    .catch(function(error) {
-      const errorMessage = error.message;
-      alert(errorMessage);
-    });
+      .auth()
+      .signOut()
+      .then(function() {
+        // Sign-out successful.
+      })
+      .catch(function(error) {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   }
-
-  
 
   signIn({ email, password }) {
     firebase
@@ -87,7 +89,7 @@ class UserStore {
         this.isAuth = user.uid;
         this.userName = user.email;
         localStorage.setItem("user_id", user.uid);
-        localStorage.setItem("user_name", user.email)
+        localStorage.setItem("user_name", user.email);
       } else {
         this.isAuth = null;
         this.userName = "";

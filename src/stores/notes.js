@@ -10,6 +10,7 @@ class NotesStore {
   isLoading = true;
 
   setActiveNote = id => (this.activeNote = id);
+  clearNotes = () => (this.notes = []);
 
   onLogout = () => {
     this.notes = [];
@@ -20,6 +21,7 @@ class NotesStore {
   };
 
   getNotes() {
+    this.isLoading = true;
     database
       .ref("notes/")
       .orderByChild("date")
