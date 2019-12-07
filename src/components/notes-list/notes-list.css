@@ -4,7 +4,7 @@
   margin-top: 20px;
   padding: 0;
   max-height: calc(100vh - 360px);
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .notes-item {
@@ -12,6 +12,11 @@
   padding: 20px;
   font-size: 18px;
   border-radius: 10px;
+}
+
+.notes-item p {
+  margin-bottom: 0;
+  font-size: 16px;
 }
 
 .notes-item.active {

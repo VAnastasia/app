@@ -22,6 +22,7 @@ class NotesStore {
   getNotes() {
     database
       .ref("notes/")
+      .orderByChild("date")
       .once("value")
       .then(snapshot => {
         this.notes = [];
@@ -34,6 +35,8 @@ class NotesStore {
         });
 
         this.isLoading = false;
+        this.activeNote =
+          this.notes.length > 0 ? this.notes[this.notes.length - 1].id : null;
       })
       .catch(error => {
         const errorMessage = error.message;
@@ -41,14 +44,15 @@ class NotesStore {
       });
   }
 
-  writeNoteData(userId, title, text) {
+  writeNoteData(userId, title, text, date) {
     firebase
       .database()
       .ref("notes/")
       .push({
         userId: userId,
         title: title,
-        text: text
+        text: text,
+        date: date
       })
       .then(this.getNotes())
       .catch(error => {
@@ -63,7 +67,8 @@ class NotesStore {
       .ref("notes/" + id)
       .update({
         title: title,
-        text: text
+        text: text,
+        date: Date.now()
       })
       .then(this.getNotes())
       .catch(error => {

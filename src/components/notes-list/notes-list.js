@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import "./notes-list.css";
 import Button from "../../components/button";
+import { formatDate, formatTime } from "../../utils/utils";
 
 export default class NotesList extends Component {
   renderItems(arr) {
     const { activeNote, onClickNote } = this.props;
 
-    return arr.map(({ id, title }) => {
+    return arr.map(({ id, title, date }) => {
       const noteClassName =
         activeNote === id ? "notes-item active" : "notes-item";
       return (
         <li className={noteClassName} key={id} onClick={() => onClickNote(id)}>
           {title}
+          <p>
+            {formatDate(date)} {formatTime(date)}
+          </p>
         </li>
       );
     });

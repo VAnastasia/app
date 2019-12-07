@@ -21,7 +21,8 @@ export default inject(
         this.props.notesStore.writeNoteData(
           this.props.userStore.isAuth,
           "Новая заметка",
-          ""
+          "",
+          Date.now()
         );
       };
 
@@ -35,8 +36,7 @@ export default inject(
         this.onSaveNote(
           evt.target.title.value,
           evt.target.text.value,
-          evt.target.id.value,
-          this.props.notesStore.isAuth
+          evt.target.id.value
         );
       };
 
@@ -83,7 +83,7 @@ export default inject(
         if (isLoading) {
           noteList = "Загружается...";
         } else {
-          notesUser = notes.slice();
+          notesUser = notes.slice().sort((a, b) => b.date - a.date);
 
           noteList = (
             <NotesList

@@ -4,7 +4,7 @@ import icon from "./search-icon.svg";
 
 export default function Search({ onSearch }) {
   return (
-    <form className="search" method="get">
+    <div className="search">
       <input
         type="text"
         placeholder="Поиск"
@@ -20,6 +20,6 @@ export default function Search({ onSearch }) {
           className="search__icon"
         />
       </button>
-    </form>
+    </div>
   );
 }
