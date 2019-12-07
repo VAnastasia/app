@@ -104,8 +104,10 @@ export default inject(
             />
             <main>
               <div className="main__left-column">
-                <h1>Все заметки</h1>
                 <Search onSearch={this.onSearch} />
+                <h1>
+                  Все заметки<sup>{notesUser.length}</sup>
+                </h1>
                 {noteList}
               </div>
               <div className="main__right-column">
