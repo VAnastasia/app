@@ -60,11 +60,12 @@ class NotesStore {
         text: text,
         date: date
       })
-      .then(this.getNotes())
       .catch(error => {
         const errorMessage = error.message;
         alert(errorMessage);
       });
+
+    this.getNotes();
   }
 
   updateNoteData(title, text, id) {
@@ -76,11 +77,12 @@ class NotesStore {
         text: text,
         date: Date.now()
       })
-      .then(this.getNotes())
       .catch(error => {
         const errorMessage = error.message;
         alert(errorMessage);
       });
+
+    this.getNotes();
   }
 
   deleteNote(id) {
@@ -88,11 +90,12 @@ class NotesStore {
       .database()
       .ref("notes/" + id)
       .remove()
-      .then(this.getNotes())
       .catch(error => {
         const errorMessage = error.message;
         alert(errorMessage);
       });
+
+    this.getNotes();
   }
 }
 
