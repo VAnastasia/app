@@ -86,14 +86,6 @@ export default inject(
         return this.props.notesStore.onSearch(filtredNotes);
       };
 
-      componentDidMount() {
-        this.props.notesStore.getNotes();
-      }
-
-      componentDidUpdate() {
-        this.getNotes();
-      }
-
       getNotes() {
         const notes = this.props.notesStore.notes;
         let notesUser = notes.slice().sort((a, b) => b.date - a.date);
@@ -107,6 +99,14 @@ export default inject(
         }
 
         return notesUser;
+      }
+
+      componentDidMount() {
+        this.props.notesStore.getNotes();
+      }
+
+      componentDidUpdate() {
+        this.getNotes();
       }
 
       render() {
@@ -135,14 +135,9 @@ export default inject(
                 <button
                   className={classNameButtonSort}
                   onClick={this.onSortDate}
+                  title="Сортировка по дате"
                 >
-                  <img
-                    src={img}
-                    width="16"
-                    height="16"
-                    alt="up-down"
-                    title="Сортировка по дате"
-                  />
+                  <img src={img} width="16" height="16" alt="up-down" />
                 </button>
                 <Search onSearch={this.onSearch} />
                 <NotesList
