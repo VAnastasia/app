@@ -90,25 +90,34 @@ export default inject(
         this.props.notesStore.getNotes();
       }
 
-      render() {
-        const { isAuth, userName } = this.props.userStore;
-        const { isLoading, notes, activeNote } = this.props.notesStore;
+      componentDidUpdate() {
+        this.getNotes();
+      }
 
-        let notesUser = [];
-        let classNameButtonSort = "main__sort";
-        const spinner = isLoading ? <Spinner /> : null;
-
-        notesUser = notes.slice().sort((a, b) => b.date - a.date);
+      getNotes() {
+        const notes = this.props.notesStore.notes;
+        let notesUser = notes.slice().sort((a, b) => b.date - a.date);
 
         if (this.state.sortDate) {
           notesUser = notes.slice().sort((a, b) => b.date - a.date);
-          classNameButtonSort = "main__sort down";
         }
 
         if (!this.state.sortDate) {
           notesUser = notes.slice().sort((a, b) => a.date - b.date);
-          classNameButtonSort = "main__sort up";
         }
+
+        return notesUser;
+      }
+
+      render() {
+        const { isAuth, userName } = this.props.userStore;
+        const { isLoading, activeNote } = this.props.notesStore;
+
+        const spinner = isLoading ? <Spinner /> : null;
+
+        const classNameButtonSort = this.state.sortDate
+          ? "main__sort down"
+          : "main__sort up";
 
         return (
           <div className="main">
@@ -121,7 +130,7 @@ export default inject(
               <div className="main__left-column">
                 <h1>
                   Все заметки
-                  <sup>{notesUser.length}</sup>
+                  <sup>{this.getNotes().length}</sup>
                 </h1>
                 <button
                   className={classNameButtonSort}
@@ -139,13 +148,13 @@ export default inject(
                 <NotesList
                   activeNote={activeNote}
                   onClickNote={this.onClickNote}
-                  notesUser={notesUser}
+                  notesUser={this.getNotes()}
                   onClickAdd={this.onClickAdd}
                 />
               </div>
               <div className="main__right-column">
                 <NoteDetails
-                  notesUser={notesUser}
+                  notesUser={this.getNotes()}
                   activeNote={activeNote}
                   onSaveNote={this.onSaveNote}
                   onSubmitNote={this.onSubmitNote}

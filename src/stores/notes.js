@@ -9,7 +9,11 @@ class NotesStore {
   activeNote = null;
   isLoading = true;
 
-  setActiveNote = id => (this.activeNote = id);
+  setActiveNote = id => {
+    //localStorage.setItem("isEditing", id);
+    this.activeNote = id;
+  };
+
   clearNotes = () => (this.notes = []);
 
   onLogout = () => {
