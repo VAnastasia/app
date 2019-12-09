@@ -64,10 +64,6 @@ export default inject(
       onSearch = evt => {
         evt.preventDefault();
 
-        this.setState({
-          isSearching: true
-        });
-
         if (!evt.target.value) {
           this.props.notesStore.getNotes();
         }
