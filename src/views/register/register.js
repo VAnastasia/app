@@ -8,7 +8,7 @@ export default function Register({ onSubmitRegister }) {
   return (
     <form className="register" method="post" onSubmit={onSubmitRegister}>
       <h1>Регистрация</h1>
-      <FieldForm type="text" id="registerlogin" label="Логин" />
+      <FieldForm type="text" id="registerlogin" label="E-mail" />
       <FieldForm type="password" id="registerpassword" label="Пароль" />
 
       <Button type="submit" title="Зарегистрироваться" />

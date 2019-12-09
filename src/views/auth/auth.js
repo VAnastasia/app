@@ -8,7 +8,7 @@ export default function Auth({ onSubmitAuth }) {
   return (
     <form className="auth" method="post" onSubmit={onSubmitAuth}>
       <h1>Вход</h1>
-      <FieldForm type="text" id="auth-login" name="login" label="Логин" />
+      <FieldForm type="text" id="auth-login" name="login" label="E-mail" />
       <FieldForm
         type="password"
         id="auth-password"
