@@ -16,10 +16,6 @@ class NotesStore {
 
   clearNotes = () => (this.notes = []);
 
-  onLogout = () => {
-    this.notes = [];
-  };
-
   onSearch = filtredNotes => {
     this.notes = filtredNotes;
   };
@@ -103,13 +99,9 @@ decorate(NotesStore, {
   notes: observable,
   isLoading: observable,
   activeNote: observable,
-  activeNoteDetails: observable,
-  onLogout: action,
+  clearNotes: action,
   setActiveNote: action,
-  addNote: action,
-  getNotes: action,
-  onTitleChange: action,
-  onTextChange: action
+  getNotes: action
 });
 
 const notesStore = new NotesStore();
